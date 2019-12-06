@@ -1,12 +1,12 @@
 package com.github.tenx.xcom.data.rest.events;
 
-import com.github.tenx.xcom.data.models.EventResponse;
+import com.github.tenx.xcom.data.models.UserData;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.Retrofit;
 
 public class AppEventHelper implements  EventsApiService {
@@ -19,9 +19,11 @@ public class AppEventHelper implements  EventsApiService {
         api = retrofit.create(EventsApiService.class);
     }
 
+
     @Override
-    public Call<ArrayList<EventResponse>> getEvents() {
+    public Observable<List<UserData>> getEvents() {
         return api.getEvents();
     }
+
 
 }

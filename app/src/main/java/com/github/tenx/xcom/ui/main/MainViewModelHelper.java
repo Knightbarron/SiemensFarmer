@@ -2,12 +2,13 @@ package com.github.tenx.xcom.ui.main;
 
 import androidx.lifecycle.LiveData;
 
-import com.github.tenx.xcom.data.models.EventResponse;
+import com.github.tenx.xcom.data.models.UserData;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface MainViewModelHelper {
-    LiveData<ArrayList<EventResponse>> getEvents();
+
+    LiveData<List<UserData>> getEvents();
 
     void loadEvents();
 }

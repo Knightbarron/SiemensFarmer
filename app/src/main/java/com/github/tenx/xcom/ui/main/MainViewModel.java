@@ -1,32 +1,39 @@
 package com.github.tenx.xcom.ui.main;
 
+import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.github.tenx.xcom.base.BaseViewModel;
 import com.github.tenx.xcom.data.AppDataManager;
-import com.github.tenx.xcom.data.models.EventResponse;
+import com.github.tenx.xcom.data.models.UserData;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import timber.log.Timber;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-public class MainViewModel  extends ViewModel implements MainViewModelHelper {
+public class MainViewModel  extends BaseViewModel implements MainViewModelHelper {
     private AppDataManager appDataManager;
 
+    private static final String TAG = "MainViewModel";
 
-    private MutableLiveData<ArrayList<EventResponse>> eventsList;
+
+    private MutableLiveData<List<UserData>> eventsList;
 
 
     public MainViewModel(AppDataManager appDataManager) {
+        super(appDataManager);
         this.appDataManager = appDataManager;
     }
 
     @Override
-    public LiveData<ArrayList<EventResponse>> getEvents() {
+    public LiveData<List<UserData>> getEvents() {
         if(eventsList == null){
             eventsList = new MutableLiveData<>();
         }
@@ -39,21 +46,28 @@ public class MainViewModel  extends ViewModel implements MainViewModelHelper {
             eventsList = new MutableLiveData<>();
         }
 
-        appDataManager.getEvents().enqueue(new Callback<ArrayList<EventResponse>>() {
-            @Override
-            public void onResponse(Call<ArrayList<EventResponse>> call, Response<ArrayList<EventResponse>> response) {
-                if(response.code() < 300){
-                    eventsList.setValue(response.body());
-                }else{
-                    Timber.e("Response code : %d , Error fetching events" , response.code());
-                }
-            }
+        appDataManager.getEvents().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<UserData>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onFailure(Call<ArrayList<EventResponse>> call, Throwable t) {
-                Timber.e("Error fetching events , %s" ,t.getMessage() );
-            }
-        });
+                    }
+
+                    @Override
+                    public void onNext(List<UserData> userData) {
+                        Log.d(TAG, "onNext: " + userData.size());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: ", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 

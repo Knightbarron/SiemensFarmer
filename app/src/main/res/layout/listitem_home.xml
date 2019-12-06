@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg"
+    android:layout_margin="8dp"
+    android:padding="5dp"
+    android:weightSum="10">
+
+    <ImageView
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:padding="4dp"
+        android:layout_height="72dp"
+        android:src="@color/colorAccent"
+        android:id="@+id/tv_topic"/>
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="Topic 1"
+        android:textColor="@color/text_colour"
+        android:textSize="18sp" />
+
+</LinearLayout>

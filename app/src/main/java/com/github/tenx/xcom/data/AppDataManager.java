@@ -2,15 +2,15 @@ package com.github.tenx.xcom.data;
 
 import android.content.Context;
 
-import com.github.tenx.xcom.data.models.EventResponse;
+import com.github.tenx.xcom.data.models.UserData;
 import com.github.tenx.xcom.data.rest.events.AppEventHelper;
 import com.github.tenx.xcom.di.scopes.ApplicationContext;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 
 public class AppDataManager implements  AppDataManagerHelper{
 
@@ -25,8 +25,11 @@ public class AppDataManager implements  AppDataManagerHelper{
         this.eventHelper = appEventHelper;
     }
 
+
     @Override
-    public Call<ArrayList<EventResponse>> getEvents() {
+    public Observable<List<UserData>> getEvents() {
         return eventHelper.getEvents();
     }
+
+
 }

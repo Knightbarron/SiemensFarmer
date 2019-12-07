@@ -13,7 +13,7 @@
         android:padding="4dp"
         android:layout_height="72dp"
         android:src="@color/colorAccent"
-        android:id="@+id/tv_topic"/>
+        android:id="@+id/iv_topic"/>
 
 
     <TextView
@@ -23,6 +23,7 @@
         android:fontFamily="@font/roboto_bold"
         android:gravity="center"
         android:text="Topic 1"
+        android:id="@+id/tv_topic"
         android:textColor="@color/text_colour"
         android:textSize="18sp" />
 

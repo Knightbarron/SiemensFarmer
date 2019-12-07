@@ -24,12 +24,10 @@ android {
 }
 
 
-
 def dagger_android_Version = 2.16
 def dagger_version = 2.19
 
 dependencies {
-
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -61,7 +59,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
 
-
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
@@ -75,7 +72,8 @@ dependencies {
 //    dagger android
     implementation "com.google.dagger:dagger-android:${dagger_android_Version}"
     annotationProcessor "com.google.dagger:dagger-android-processor:${dagger_android_Version}"
-    implementation "com.google.dagger:dagger-android-support:${dagger_android_Version}" // if you use the support libraries
+    implementation "com.google.dagger:dagger-android-support:${dagger_android_Version}"
+    // if you use the support libraries
 
 
     //rx java
@@ -91,7 +89,6 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-
 
 
 }

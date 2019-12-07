@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
+import maes.tech.intentanim.CustomIntent;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FunctionActivity.class);
         intent.putExtra(Constants.SELECTED_ID,position);
         startActivity(intent);
+
+        CustomIntent.customType(this,"left-to-right");
+
 
     }
 

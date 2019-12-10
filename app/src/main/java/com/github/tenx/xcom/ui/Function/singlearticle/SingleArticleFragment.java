@@ -1,4 +1,4 @@
-package com.github.tenx.xcom.ui.Function.prediction;
+package com.github.tenx.xcom.ui.Function.singlearticle;
 
 
 import android.content.Context;
@@ -19,10 +19,11 @@ import dagger.android.support.AndroidSupportInjection;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PredictionFragment extends Fragment {
+public class SingleArticleFragment extends Fragment {
+
 
     @Inject
-    public PredictionFragment() {
+    public SingleArticleFragment() {
         // Required empty public constructor
     }
 
@@ -31,10 +32,11 @@ public class PredictionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_prediction, container, false);
+        View view =  inflater.inflate(R.layout.fragment_single_article, container, false);
 
 
         AndroidSupportInjection.inject(this);
+
 
         return view;
     }
@@ -46,6 +48,5 @@ public class PredictionFragment extends Fragment {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
-
 
 }

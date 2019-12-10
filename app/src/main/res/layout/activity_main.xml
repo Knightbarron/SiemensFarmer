@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="8dp">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:id="@+id/titleText"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/title_bar_color"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:layout_marginLeft="40dp"/>
 
 

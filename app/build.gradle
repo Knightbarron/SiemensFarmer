@@ -90,7 +90,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+
+    //Intent animation library
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
+
+
+//    persmission
+    implementation 'com.karumi:dexter:5.0.0'
 
 
 }

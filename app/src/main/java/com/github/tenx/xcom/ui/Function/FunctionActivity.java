@@ -10,7 +10,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.ui.Function.advertisements.AdvertisementsFragment;
 import com.github.tenx.xcom.ui.Function.articles.ArticlesFragment;
+import com.github.tenx.xcom.ui.Function.contactExperts.ContactExpertsFragment;
+import com.github.tenx.xcom.ui.Function.prediction.PredictionFragment;
+import com.github.tenx.xcom.ui.Function.questions.QuestionFragment;
 import com.github.tenx.xcom.utils.Constants;
 
 import javax.inject.Inject;
@@ -35,6 +39,19 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
 
     @Inject
     ArticlesFragment articlesFragment;
+    @Inject
+    ContactExpertsFragment contactExpertsFragment;
+    @Inject
+    PredictionFragment predictionFragment;
+    @Inject
+    QuestionFragment questionFragment;
+    @Inject
+    AdvertisementsFragment advertisementsFragment;
+
+
+
+
+
 
     int flagId = 0;
     @BindView(R.id.titleText)
@@ -70,10 +87,30 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
 
         switch (flagId) {
 
-
+            case 0:
+               // initFrag(articlesFragment);
+                setUpToolBar("Services");
+                break;
+            case 1:
+                initFrag(predictionFragment);
+                setUpToolBar("Predict my Production");
+                break;
+            case 2:
+                initFrag(advertisementsFragment);
+                setUpToolBar("Advertisements");
+                break;
+            case 3:
+                initFrag(questionFragment);
+                setUpToolBar("Post a Question");
+                break;
+            case 4:
+                initFrag(contactExpertsFragment);
+                setUpToolBar("Contact the Experts");
+                break;
             case 5:
                 initFrag(articlesFragment);
                 setUpToolBar("Articles");
+                break;
 
         }
 
@@ -104,4 +141,5 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
         CustomIntent.customType(this,"right-to-left");
     }
 }
+
 

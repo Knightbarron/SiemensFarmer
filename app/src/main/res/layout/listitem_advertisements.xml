@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg"
+    android:layout_margin="8dp"
+    android:padding="8dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="18sp"
+        android:textColor="@color/text_colour"
+        android:text="Name of the Company"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_headline"
+        android:textColor="#746F6F"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:text="New pesticide in the market"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_desceription"
+        android:fontFamily="@font/roboto"
+        android:layout_marginTop="10dp"
+        android:text="This is the description bdody of the thing we are here to aanouce so many things cuz everything has changed. I dont know how and why This is happeneing but this is happening????"/>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:id="@+id/iv_advertisement_image"
+        android:src="@color/colorPrimary"/>
+
+</LinearLayout>

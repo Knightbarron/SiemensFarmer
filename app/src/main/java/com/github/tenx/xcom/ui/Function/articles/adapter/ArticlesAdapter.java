@@ -1,4 +1,4 @@
-package com.github.tenx.xcom.ui.main.recyclerView;
+package com.github.tenx.xcom.ui.Function.articles.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +16,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.HomePageViewHolder>{
+public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ArticlesViewHolder>{
 
-    private List<HomePageItemsModel> mList;
+    private List<ArticlesDataModel> mList;
     private View.OnClickListener onItemClickListener;
 
     private static final String TAG = "ArticlesAdapter";
 
     @Inject
-    public HomePageAdapter(){
+    public ArticlesAdapter(){
         mList = new ArrayList<>();
     }
 
@@ -36,13 +36,13 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.HomePa
 
     @NonNull
     @Override
-    public HomePageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArticlesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_home,parent,false);
-        return new HomePageViewHolder(view);
+        return new ArticlesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomePageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArticlesViewHolder holder, int position) {
         holder.imageView.setImageResource(mList.get(position).getImage());
         holder.textView.setText(mList.get(position).getName());
 
@@ -54,20 +54,20 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.HomePa
         return mList.size();
     }
 
-    public void updateListItems(List<HomePageItemsModel> mList){
+    public void updateListItems(List<ArticlesDataModel> mList){
         this.mList.addAll(mList);
         notifyDataSetChanged();
     }
 
 
 
-    public class HomePageViewHolder extends RecyclerView.ViewHolder {
+    public class ArticlesViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
         TextView textView;
 
 
-        public HomePageViewHolder(@NonNull View itemView) {
+        public ArticlesViewHolder(@NonNull View itemView) {
             super(itemView);
 
             itemView.setTag(this);

@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.Function.articles.ArticlesFragment">
 
-    <include layout="@layout/listitem_home"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

@@ -1,14 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.Function.contactExperts.ContactExpertsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8.5"
+            android:hint="Enter your location"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto"
+            android:background="@drawable/cardbg_stroke" />
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="@drawable/cardbg_stroke"
+            android:layout_marginLeft="10dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_my_location"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:cornerRadius="10dp"
+        android:textColor="@color/title_bar_color"
+        android:textSize="16sp"
+        android:text="Search"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:gravity="center"
+        android:id="@+id/btn_search"
+        android:layout_below="@+id/text_input_layout"
+        android:layout_alignParentRight="true"/>
+
+    <ProgressBar
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:id="@+id/progressbar"
+        android:visibility="visible"/>
+
+    <include layout="@layout/listitem_home"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view"
+        tools:listitem="@layout/listitem_home">
+
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

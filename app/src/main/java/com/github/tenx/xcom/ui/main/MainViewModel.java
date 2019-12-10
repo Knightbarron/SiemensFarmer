@@ -50,7 +50,7 @@ public class MainViewModel  extends BaseViewModel implements MainViewModelHelper
                 .subscribe(new Observer<List<UserData>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        getCompositeDisposable().add(d);
                     }
 
                     @Override

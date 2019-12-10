@@ -1,5 +1,6 @@
 package com.github.tenx.xcom.ui.Function;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -10,11 +11,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.Function.advertisements.AdvertisementsFragment;
+import com.github.tenx.xcom.ui.Function.shop.ShopFragment;
 import com.github.tenx.xcom.ui.Function.articles.ArticlesFragment;
 import com.github.tenx.xcom.ui.Function.contactExperts.ContactExpertsFragment;
 import com.github.tenx.xcom.ui.Function.prediction.PredictionFragment;
 import com.github.tenx.xcom.ui.Function.questions.QuestionFragment;
+import com.github.tenx.xcom.ui.Services.ServicesActivity;
 import com.github.tenx.xcom.utils.Constants;
 
 import javax.inject.Inject;
@@ -32,7 +34,7 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
     @Inject
     FunctionViewModel viewModel;
 
-    private static final String TAG = "FunctionActivity";
+    private static final String TAG = "sudoCoder";
 
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
@@ -46,12 +48,7 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
     @Inject
     QuestionFragment questionFragment;
     @Inject
-    AdvertisementsFragment advertisementsFragment;
-
-
-
-
-
+    ShopFragment shopFragment;
 
     int flagId = 0;
     @BindView(R.id.titleText)
@@ -81,6 +78,8 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
         inititalizeFragment(flagId);
         Log.d(TAG, "onCreate: Flag id ::: " + flagId);
 
+        Log.d(TAG, "onCreate: " + viewModel.getString());
+
     }
 
     private void inititalizeFragment(int flagId) {
@@ -88,7 +87,7 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
         switch (flagId) {
 
             case 0:
-               // initFrag(articlesFragment);
+                goToNextActivity();
                 setUpToolBar("Services");
                 break;
             case 1:
@@ -96,7 +95,7 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
                 setUpToolBar("Predict my Production");
                 break;
             case 2:
-                initFrag(advertisementsFragment);
+                initFrag(shopFragment);
                 setUpToolBar("Advertisements");
                 break;
             case 3:
@@ -140,6 +139,16 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
         super.finish();
         CustomIntent.customType(this,"right-to-left");
     }
+
+    private void goToNextActivity() {
+
+        Intent intent = new Intent(this, ServicesActivity.class);
+        startActivity(intent);
+        CustomIntent.customType(this,"left-to-right");
+
+
+    }
+
 }
 
 

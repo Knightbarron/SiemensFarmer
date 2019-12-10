@@ -4,7 +4,10 @@ package com.github.tenx.xcom.di.modules.app;
 import com.github.tenx.xcom.di.modules.function.FunctionActivityModule;
 import com.github.tenx.xcom.di.modules.function.FunctionFragmentBuilder;
 import com.github.tenx.xcom.di.modules.main.MainActModule;
+import com.github.tenx.xcom.di.modules.services.ServicesActivityModule;
+import com.github.tenx.xcom.di.modules.services.ServicesFragmentBuilder;
 import com.github.tenx.xcom.ui.Function.FunctionActivity;
+import com.github.tenx.xcom.ui.Services.ServicesActivity;
 import com.github.tenx.xcom.ui.main.MainActivity;
 
 import dagger.Module;
@@ -21,5 +24,10 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = {FunctionActivityModule.class,
             FunctionFragmentBuilder.class})
     abstract FunctionActivity bindFunctionActivity();
+
+    @ContributesAndroidInjector(modules = {ServicesActivityModule.class,
+            ServicesFragmentBuilder.class})
+    abstract ServicesActivity bindServicesActivity();
+
 
 }

@@ -28,7 +28,7 @@ public abstract  class FunctionActivityModule {
 
 
     @Provides
-    static FunctionViewModel provideMainViewModel(FunctionActivity functionActivity , AppDataManager appDataManager){
+    static FunctionViewModel provideFunctionViewModel(FunctionActivity functionActivity , AppDataManager appDataManager){
         ViewModelFactory<FunctionViewModel> factory = new ViewModelFactory<>(new FunctionViewModel(appDataManager));
         return ViewModelProviders.of(functionActivity, factory).get(FunctionViewModel.class);
     }

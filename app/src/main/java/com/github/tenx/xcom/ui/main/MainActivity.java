@@ -1,5 +1,6 @@
 package com.github.tenx.xcom.ui.main;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.ui.Function.FunctionActivity;
+import com.github.tenx.xcom.ui.Services.ServicesActivity;
 import com.github.tenx.xcom.ui.main.recyclerView.HomePageAdapter;
 import com.github.tenx.xcom.ui.main.recyclerView.HomePageItemsModel;
 import com.github.tenx.xcom.utils.Constants;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     HomePageAdapter adapter;
 
+
+
     ArrayList<HomePageItemsModel> itemList;
 
     @BindView(R.id.recycler_view)
@@ -66,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void goToNextActivity(int position) {
+        if (position==0){
+            Intent intent = new Intent(this, ServicesActivity.class);
+            startActivity(intent);
+            CustomIntent.customType(this,"left-to-right");
+            return;
+        }
 
         Intent intent = new Intent(this, FunctionActivity.class);
         intent.putExtra(Constants.SELECTED_ID,position);
@@ -102,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setUpRecycler(RecyclerView recyclerView, HomePageAdapter adapter) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(onClickListener);
         adapter.updateListItems(loadItems());
@@ -112,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         itemList = new ArrayList<>();
         itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Services"));
         itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Predict my Production"));
-        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Advertisements"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Shop"));
         itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Post a Question"));
         itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Contact the Experts"));
         itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Articles"));

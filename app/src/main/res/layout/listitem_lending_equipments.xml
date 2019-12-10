@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg"
+    android:layout_margin="8dp"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_product"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="16sp"
+        android:textColor="@color/text_colour"
+        android:text="Benz Tractor"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_manufactuerer"
+        android:textColor="#746F6F"
+        android:fontFamily="@font/roboto"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:text="Texas Instruments"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_price"
+        android:textColor="#746F6F"
+        android:fontFamily="@font/roboto"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:text="Price: 500 per day"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_location"
+        android:textColor="#746F6F"
+        android:fontFamily="@font/roboto"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:text="Location : Guwahati"/>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:id="@+id/iv_equipments_image"
+        android:src="@color/colorPrimary"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_images"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="Contact"
+            android:textAllCaps="false"
+            android:textColor="@color/title_bar_color"
+            android:textSize="14sp"
+            app:cornerRadius="10dp" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="120dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:cornerRadius="10dp"
+            android:textColor="@color/title_bar_color"
+            android:textSize="14sp"
+            android:text="Book"
+            android:fontFamily="@font/roboto"
+            android:backgroundTint="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:id="@+id/btn_book"
+            />
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

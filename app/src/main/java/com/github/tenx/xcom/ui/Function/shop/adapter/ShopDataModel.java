@@ -1,6 +1,6 @@
-package com.github.tenx.xcom.ui.Function.advertisements.adapter;
+package com.github.tenx.xcom.ui.Function.shop.adapter;
 
-public class AdvertisementsDataModel {
+public class ShopDataModel {
 
     private String nameCompany;
     private String nameProduct;
@@ -8,7 +8,7 @@ public class AdvertisementsDataModel {
     private Integer adImage;
 
 
-    public AdvertisementsDataModel(String nameCompany, String nameProduct, String adBody, Integer adImage) {
+    public ShopDataModel(String nameCompany, String nameProduct, String adBody, Integer adImage) {
         this.nameCompany = nameCompany;
         this.nameProduct = nameProduct;
         this.adBody = adBody;

@@ -1,4 +1,4 @@
-package com.github.tenx.xcom.ui.Function.advertisements.adapter;
+package com.github.tenx.xcom.ui.Function.shop.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.Function.articles.adapter.ArticlesDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAdapter.AdvertisementViewHolder> {
+public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.AdvertisementViewHolder> {
 
-    private List<AdvertisementsDataModel> mList;
+    private List<ShopDataModel> mList;
+    private View.OnClickListener onItemClickListener;
 
 
     @Inject
-    public AdvertisementsAdapter() {
+    public ShopAdapter() {
         mList = new ArrayList<>();
     }
 
@@ -33,6 +33,10 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
     public AdvertisementViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_advertisements,parent,false);
         return new AdvertisementViewHolder(view);
+    }
+
+    public void setOnItemClickListener(View.OnClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
         return mList.size();
     }
 
-    public void updateListItems(List<AdvertisementsDataModel> mList){
+    public void updateListItems(List<ShopDataModel> mList){
         this.mList.addAll(mList);
         notifyDataSetChanged();
     }
@@ -67,10 +71,14 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
         public AdvertisementViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            itemView.setTag(this);
+
             tvComapny = itemView.findViewById(R.id.tv_title);
             tvProduct = itemView.findViewById(R.id.tv_headline);
             tvDescription = itemView.findViewById(R.id.tv_desceription);
             bodyImage = itemView.findViewById(R.id.iv_advertisement_image);
+
+            itemView.setOnClickListener(onItemClickListener);
 
 
         }

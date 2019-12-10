@@ -13,7 +13,11 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
         super(dataManager);
         this.appDataManager = dataManager;
     }
-    
+
+
+    public String getString(){
+        return "i am a manuh . Do you understand me??";
+    }
     
     
 }

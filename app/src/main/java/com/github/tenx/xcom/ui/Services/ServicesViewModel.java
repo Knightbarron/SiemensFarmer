@@ -18,4 +18,10 @@ public class ServicesViewModel extends BaseViewModel implements ServicesViewMode
         super(dataManager);
         this.appDataManager = dataManager;
     }
+
+
+    public String getString(){
+        return "i am a manuh . Do you understand Goru??";
+    }
+
 }

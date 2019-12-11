@@ -1,6 +1,7 @@
 package com.github.tenx.xcom.ui.Services;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,10 @@ public class ServicesActivity extends AppCompatActivity implements HasSupportFra
     private static final String TAG = "ServicesActivity";
 
     @Inject
+    ServicesViewModel viewModel;
+
+
+    @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
     @BindView(R.id.tabLayout)
     TabLayout mTabLayout;
@@ -42,6 +47,8 @@ public class ServicesActivity extends AppCompatActivity implements HasSupportFra
         ButterKnife.bind(this);
 
         AndroidInjection.inject(this);
+
+        Log.d(TAG, "onCreate: "+viewModel.getString());
 
         setupViewPager();
 

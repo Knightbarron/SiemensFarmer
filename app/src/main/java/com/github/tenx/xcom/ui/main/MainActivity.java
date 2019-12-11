@@ -120,12 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
     private List<HomePageItemsModel> loadItems() {
         itemList = new ArrayList<>();
-        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Services"));
-        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Predict my Production"));
-        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Shop"));
-        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Post a Question"));
-        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Contact the Experts"));
-        itemList.add(new HomePageItemsModel(R.drawable.ic_launcher_foreground,"Articles"));
+        itemList.add(new HomePageItemsModel(R.drawable.services,"Services"));
+        itemList.add(new HomePageItemsModel(R.drawable.scale,"Predict my Production"));
+        itemList.add(new HomePageItemsModel(R.drawable.shop,"Shop"));
+        itemList.add(new HomePageItemsModel(R.drawable.question_mark_,"Post a Question"));
+        itemList.add(new HomePageItemsModel(R.drawable.business_card,"Contact the Experts"));
+        itemList.add(new HomePageItemsModel(R.drawable.articles,"Articles"));
         return itemList;
     }
 

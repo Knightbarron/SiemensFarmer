@@ -2,11 +2,15 @@ package com.github.tenx.xcom.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.ui.auth.login.LoginFragment;
+import com.github.tenx.xcom.ui.auth.registration.RegistrationFragment;
 
 import javax.inject.Inject;
 
@@ -27,6 +31,14 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
 
     private static final String TAG = "debuggable";
 
+    FragmentManager fragmentManager;
+
+    @Inject
+    LoginFragment loginFragment;
+
+    @Inject
+    RegistrationFragment registrationFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +53,25 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
 
 
         Log.d(TAG, "onCreate: " + viewModel.getString());
+
+
+        fragmentManager = getSupportFragmentManager();
+        initFrag(loginFragment);
+
+
     }
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return dispatchingAndroidInjector;
+    }
+
+
+    private void initFrag(Fragment fragment) {
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.frame_layout, fragment);
+        ft.commit();
+
     }
 }

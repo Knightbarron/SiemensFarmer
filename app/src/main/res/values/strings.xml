@@ -8,4 +8,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="act_spash_welcome">Welcome to\n XCom</string>
+
+
+    <string name="edittext_email"><font size="12">Email</font></string>
+    <string name="edittext_password"><font size="12">Password</font></string>
+    <string name="edittext_cnf_password"><font size="12">Confirm Password</font></string>
+
+
+
 </resources>

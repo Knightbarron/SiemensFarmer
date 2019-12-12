@@ -2,6 +2,7 @@ package com.github.tenx.xcom.ui.auth;
 
 import com.github.tenx.xcom.base.BaseViewModel;
 import com.github.tenx.xcom.data.AppDataManager;
+import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 
 public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper {
 
@@ -13,10 +14,19 @@ public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper 
     public AuthViewModel(AppDataManager dataManager) {
         super(dataManager);
         this.appDataManager = dataManager;
+
     }
 
 
     public String getString(){
         return "i am a manuh . Do you understand Goru 36??";
+    }
+
+    public void setAuthToken(String token){
+        appDataManager.setAccessToken(token);
+    }
+
+    public String getAuthToken(){
+        return appDataManager.getAccessToken();
     }
 }

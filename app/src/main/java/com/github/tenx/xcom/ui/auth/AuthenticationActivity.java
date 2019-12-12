@@ -58,6 +58,9 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
         fragmentManager = getSupportFragmentManager();
         initFrag(loginFragment);
 
+        viewModel.setAuthToken("Alpha Beta Gamma delta");
+        Log.d(TAG, "onCreate: Answer is::: " + viewModel.getAuthToken() );
+
 
     }
 

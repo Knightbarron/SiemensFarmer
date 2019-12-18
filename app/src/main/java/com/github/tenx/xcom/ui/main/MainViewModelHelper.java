@@ -8,7 +8,4 @@ import java.util.List;
 
 public interface MainViewModelHelper {
 
-    LiveData<List<UserData>> getEvents();
-
-    void loadEvents();
 }

@@ -2,7 +2,18 @@ package com.github.tenx.xcom.data;
 
 import android.content.Context;
 
+import com.github.tenx.xcom.data.models.DefaultResponse;
 import com.github.tenx.xcom.data.models.UserData;
+import com.github.tenx.xcom.data.models.auth.LoginBody;
+import com.github.tenx.xcom.data.models.auth.RegistrationBody;
+import com.github.tenx.xcom.data.models.auth.RegistrationResponse;
+import com.github.tenx.xcom.data.models.functions.appointments.AllExpertsResponse;
+import com.github.tenx.xcom.data.models.functions.appointments.ExpertProfileBody;
+import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsBody;
+import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsResponse;
+import com.github.tenx.xcom.data.models.functions.equipments.AllEquipmentsResponse;
+import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
+import com.github.tenx.xcom.data.models.functions.equipments.OrderEquipmentBody;
 import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.data.rest.events.AppEventHelper;
 import com.github.tenx.xcom.di.scopes.ApplicationContext;
@@ -12,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 
 public class AppDataManager implements  AppDataManagerHelper{
 
@@ -30,9 +42,55 @@ public class AppDataManager implements  AppDataManagerHelper{
     }
 
 
+
     @Override
-    public Observable<List<UserData>> getEvents() {
-        return eventHelper.getEvents();
+    public Observable<Response<RegistrationResponse>> registerFarmer(RegistrationBody body) {
+        return eventHelper.registerFarmer(body);
+    }
+
+    @Override
+    public Observable<Response<RegistrationResponse>> loginFarmer(LoginBody body) {
+        return eventHelper.loginFarmer(body);
+    }
+
+    @Override
+    public Observable<Response<FarmerAppointmentsResponse>> getAppointmentsForFarmer() {
+        return eventHelper.getAppointmentsForFarmer();
+    }
+
+    @Override
+    public Observable<Response<DefaultResponse>> postCreateAppointment(String id, FarmerAppointmentsBody body) {
+        return eventHelper.postCreateAppointment(id,body);
+    }
+
+    @Override
+    public Observable<Response<AllExpertsResponse>> getAllExperts() {
+        return eventHelper.getAllExperts();
+    }
+
+    @Override
+    public Observable<Response<ExpertProfileBody>> getSingleExpert(String id) {
+        return eventHelper.getSingleExpert(id);
+    }
+
+    @Override
+    public Observable<Response<DefaultResponse>> createEquipment(EquipmentBody body) {
+        return eventHelper.createEquipment(body);
+    }
+
+    @Override
+    public Observable<Response<AllEquipmentsResponse>> getAllEquipments() {
+        return eventHelper.getAllEquipments();
+    }
+
+    @Override
+    public Observable<Response<DefaultResponse>> orderEquipment(OrderEquipmentBody body) {
+        return eventHelper.orderEquipment(body);
+    }
+
+    @Override
+    public Observable<Response<AllEquipmentsResponse>> getEquipmentsForFarmer() {
+        return eventHelper.getEquipmentsForFarmer();
     }
 
 
@@ -57,12 +115,12 @@ public class AppDataManager implements  AppDataManagerHelper{
     }
 
     @Override
-    public String getTypeUser() {
-        return preferencesHelper.getTypeUser();
+    public void setUserId(String userId) {
+        preferencesHelper.setUserId(userId);
     }
 
     @Override
-    public void setTypeUser(String userType) {
-        preferencesHelper.setTypeUser(userType);
+    public String getUserId() {
+        return preferencesHelper.getUserId();
     }
 }

@@ -70,7 +70,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
 
             <com.google.android.material.button.MaterialButton
@@ -97,7 +97,7 @@
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:layout_marginTop="5dp"
-                android:textColor="#F44336"
+
                 />
 
 

@@ -18,12 +18,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.functions.appointments.AllExpertsResponse;
+import com.github.tenx.xcom.data.models.functions.appointments.ExpertProfileBody;
+import com.github.tenx.xcom.ui.Function.FunctionViewModel;
 import com.github.tenx.xcom.ui.Function.contactExperts.adapter.ContactExpertsAdapter;
-import com.github.tenx.xcom.ui.Function.contactExperts.adapter.ContactExpertsDataModel;
+import com.github.tenx.xcom.ui.Function.singleExpert.SingleExpertFragment;
+import com.github.tenx.xcom.utils.Constants;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,9 +73,15 @@ public class ContactExpertsFragment extends Fragment {
     ContactExpertsAdapter adapter;
 
 
-    ArrayList<ContactExpertsDataModel> itemList;
+    ArrayList<ExpertProfileBody> itemList;
     @BindView(R.id.progressbar)
     ProgressBar progressbar;
+
+    @Inject
+    FunctionViewModel viewModel;
+
+    @Inject
+    SingleExpertFragment singleExpertFragment;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -82,11 +94,31 @@ public class ContactExpertsFragment extends Fragment {
             int position = viewHolder.getAdapterPosition();
             Log.d(TAG, "onClick: POsition ::: " + position);
 
-            //  goToNextActivity(position);
 
-            // initializeFragments(singleArticleFragment);
+            //  goToNextActivity(position);
+            String idForTheExpert =  itemList.get(position).getId();
+
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.SEND_ID_TO_SINGLE_EXPERT,idForTheExpert);
+            singleExpertFragment.setArguments(bundle);
+
+            initializeFragments(singleExpertFragment);
+
         }
     };
+
+    private void initializeFragments(SingleExpertFragment frag) {
+
+        String backStateName = frag.getClass().toString();
+        //Log.d(TAG, "onBtnOtpLoginClicked: " + backStateName);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right,R.anim.enter_from_right,R.anim.exit_to_right);
+
+        transaction.replace(R.id.frame_layout,frag);
+        transaction.addToBackStack(backStateName);
+
+        transaction.commit();
+    }
 
 
     @Inject
@@ -107,7 +139,36 @@ public class ContactExpertsFragment extends Fragment {
         progressbar.setVisibility(View.INVISIBLE);
 
 
+        subscribeObserverForListStatus();
+        subscribeObserverForTheExpertList();
+
+
         return view;
+    }
+
+    private void subscribeObserverForTheExpertList() {
+        viewModel.getAllExperts().observe(this, new Observer<AllExpertsResponse>() {
+            @Override
+            public void onChanged(AllExpertsResponse allExpertsResponse) {
+                itemList = allExpertsResponse.getmList();
+                Log.d(TAG, "onChanged: SIze of the Epxerts list::: " + itemList.size());
+                adapter.updateListData(itemList);
+            }
+        });
+    }
+
+    private void subscribeObserverForListStatus() {
+        viewModel.getStatusAllExperts().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    progressbar.setVisibility(View.GONE);
+                    Log.d(TAG, "onChanged: Success in retriving the data");
+                }else{
+
+                }
+            }
+        });
     }
 
 
@@ -123,26 +184,16 @@ public class ContactExpertsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(onClickListener);
-        adapter.updateListData(loadItems());
     }
 
-    private List<ContactExpertsDataModel> loadItems() {
-        itemList = new ArrayList<>();
-        itemList.add(new ContactExpertsDataModel(R.drawable.ic_launcher_foreground, "article 1"));
-        itemList.add(new ContactExpertsDataModel(R.drawable.ic_launcher_foreground, "Article 2"));
-        itemList.add(new ContactExpertsDataModel(R.drawable.ic_launcher_foreground, "Article 3"));
-        itemList.add(new ContactExpertsDataModel(R.drawable.ic_launcher_foreground, "Article 4"));
-        itemList.add(new ContactExpertsDataModel(R.drawable.ic_launcher_foreground, "Articvle 5"));
-        itemList.add(new ContactExpertsDataModel(R.drawable.ic_launcher_foreground, "Articles"));
-        return itemList;
-    }
 
 
     @OnClick(R.id.btn_search)
     public void onViewClicked() {
         progressbar.setVisibility(View.VISIBLE);
         setUpRecycler(recyclerView, adapter);
-        progressbar.setVisibility(View.INVISIBLE);
+        progressbar.setVisibility(View.GONE);
+        viewModel.getAllExpertsList();
 
     }
 

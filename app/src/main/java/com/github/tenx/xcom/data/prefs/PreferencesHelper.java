@@ -9,9 +9,10 @@ public interface PreferencesHelper {
 
     String getEmail();
 
-    String getTypeUser();
 
-    void setTypeUser(String userType);
+    void setUserId(String userId);
+
+    String getUserId();
 
 
 }

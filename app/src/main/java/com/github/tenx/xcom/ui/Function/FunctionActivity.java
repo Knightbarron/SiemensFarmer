@@ -2,6 +2,7 @@ package com.github.tenx.xcom.ui.Function;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -11,6 +12,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.ui.Function.appointments.FarmerAppointmentsFragment;
+import com.github.tenx.xcom.ui.Function.cart.CartFragment;
+import com.github.tenx.xcom.ui.Function.createEquipments.CreateEquipmentFragment;
+import com.github.tenx.xcom.ui.Function.myEquipments.MyEquipments;
+import com.github.tenx.xcom.ui.Function.notification.FarmerNotificationFragment;
 import com.github.tenx.xcom.ui.Function.shop.ShopFragment;
 import com.github.tenx.xcom.ui.Function.articles.ArticlesFragment;
 import com.github.tenx.xcom.ui.Function.contactExperts.ContactExpertsFragment;
@@ -18,6 +24,8 @@ import com.github.tenx.xcom.ui.Function.prediction.PredictionFragment;
 import com.github.tenx.xcom.ui.Function.questions.QuestionFragment;
 import com.github.tenx.xcom.ui.Services.ServicesActivity;
 import com.github.tenx.xcom.utils.Constants;
+
+import java.sql.Date;
 
 import javax.inject.Inject;
 
@@ -39,6 +47,7 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
+
     @Inject
     ArticlesFragment articlesFragment;
     @Inject
@@ -49,8 +58,22 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
     QuestionFragment questionFragment;
     @Inject
     ShopFragment shopFragment;
+    @Inject
+    CartFragment cartFragment;
+    @Inject
+    FarmerAppointmentsFragment farmerAppointmentsFragment;
+
+    @Inject
+    FarmerNotificationFragment farmerNotificationFragment;
+
+    @Inject
+    CreateEquipmentFragment createEquipmentFragment;
+
+    @Inject
+    MyEquipments myEquipmentsFragment;
 
     int flagId = 0;
+    boolean flagState = true;
     @BindView(R.id.titleText)
     TextView titleText;
 
@@ -72,47 +95,76 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
 
 
         flagId = getIntent().getExtras().getInt(Constants.SELECTED_ID);
+        flagState = getIntent().getExtras().getBoolean(Constants.FLAG_BUSINESS);
 
         fragmentManager = getSupportFragmentManager();
 
-        inititalizeFragment(flagId);
+        inititalizeFragment(flagId,flagState);
         Log.d(TAG, "onCreate: Flag id ::: " + flagId);
 
         Log.d(TAG, "onCreate: " + viewModel.getString());
 
+
+
     }
 
-    private void inititalizeFragment(int flagId) {
+    private void inititalizeFragment(int flagId, boolean flagState) {
 
-        switch (flagId) {
+        if (flagState) {
 
-            case 0:
-                goToNextActivity();
-                setUpToolBar("Services");
-                break;
-            case 1:
-                initFrag(predictionFragment);
-                setUpToolBar("Predict my Production");
-                break;
-            case 2:
-                initFrag(shopFragment);
-                setUpToolBar("Advertisements");
-                break;
-            case 3:
-                initFrag(questionFragment);
-                setUpToolBar("Post a Question");
-                break;
-            case 4:
-                initFrag(contactExpertsFragment);
-                setUpToolBar("Contact the Experts");
-                break;
-            case 5:
-                initFrag(articlesFragment);
-                setUpToolBar("Articles");
-                break;
+            switch (flagId) {
+
+                case 0:
+                    goToNextActivity();
+                    setUpToolBar("Services");
+                    break;
+                case 1:
+                    initFrag(shopFragment);
+                    setUpToolBar("Shop");
+                    break;
+                case 2:
+                    initFrag(questionFragment);
+                    setUpToolBar("Post a Question");
+                    break;
+                case 3:
+                    initFrag(contactExpertsFragment);
+                    setUpToolBar("Contact the Experts");
+                    break;
+                case 4:
+                    initFrag(articlesFragment);
+                    setUpToolBar("Articles");
+                    break;
+
+            }
 
         }
+        else{
+            switch (flagId) {
+                case 0:
+                    initFrag(farmerNotificationFragment);
+                    setUpToolBar("Notifications");
+                    break;
+                case 1:
+                    initFrag(predictionFragment);
+                    Log.d(TAG, "inititalizeFragment: LALALLA predfictions");
+                    setUpToolBar("Predict my Production");
+                    break;
+                case 2:
+                    initFrag(cartFragment);
+                    Log.d(TAG, "inititalizeFragment: CARTSSSSs");
+                    setUpToolBar("Your cart");
+                    break;
+                case 3:
+                    initFrag(farmerAppointmentsFragment);
+                    setUpToolBar("Appointments");
+                    break;
+                case 4:
+                    initFrag(myEquipmentsFragment);
+                    setUpToolBar("Lend Equipment");
+                    break;
+            }
 
+        }
     }
 
     private void setUpToolBar(String title) {

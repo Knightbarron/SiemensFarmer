@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.functions.appointments.ExpertProfileBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.inject.Inject;
 public class ContactExpertsAdapter extends RecyclerView.Adapter<ContactExpertsAdapter.ContactExpertViewHolder> {
 
 
-    private List<ContactExpertsDataModel> mList;
+    private List<ExpertProfileBody> mList;
     private View.OnClickListener onItemClickListener;
 
     @Inject
@@ -41,8 +42,8 @@ public class ContactExpertsAdapter extends RecyclerView.Adapter<ContactExpertsAd
 
     @Override
     public void onBindViewHolder(@NonNull ContactExpertViewHolder holder, int position) {
-            holder.expertName.setText(mList.get(position).getExpertName());
-            holder.expertImage.setImageResource(mList.get(position).getExpertImage());
+            holder.expertName.setText(mList.get(position).getName());
+            holder.expertImage.setImageResource(mList.get(position).getProfilePic());
     }
 
     @Override
@@ -50,7 +51,7 @@ public class ContactExpertsAdapter extends RecyclerView.Adapter<ContactExpertsAd
         return mList.size();
     }
 
-    public void updateListData(List<ContactExpertsDataModel>  mList){
+    public void updateListData(List<ExpertProfileBody>  mList){
         this.mList.addAll(mList);
         notifyDataSetChanged();
 

@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.Function.contactExperts.adapter.ContactExpertsDataModel;
 
 import java.util.ArrayList;
 import java.util.List;

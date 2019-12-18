@@ -113,11 +113,11 @@ public class ShopFragment extends Fragment {
 
     private List<ShopDataModel> loadItems() {
 
-        itemList.add(new ShopDataModel("Company 1 ", "Product 1", "Some description boyd",R.drawable.ic_my_location));
-        itemList.add(new ShopDataModel("Company 2 ", "Product 11", "Some description boyd 22",R.drawable.ic_launcher_foreground));
-        itemList.add(new ShopDataModel("Company 3 ", "Product 12", "Some description boyd33",R.drawable.ic_launcher_background));
-        itemList.add(new ShopDataModel("Company 4 ", "Product 4", "Some description boyd44 ",R.drawable.ic_launcher_foreground));
-        itemList.add(new ShopDataModel("Company 5 ", "Product 5", "Some description boyd 5",R.drawable.ic_launcher_background));
+        itemList.add(new ShopDataModel("Product 1 ", "1", "Some description boyd",R.drawable.ic_my_location));
+        itemList.add(new ShopDataModel("Product 2 ", " 11", "Some description boyd 22",R.drawable.ic_launcher_foreground));
+        itemList.add(new ShopDataModel("Product 3 ", " 12", "Some description boyd33",R.drawable.ic_launcher_background));
+        itemList.add(new ShopDataModel("Product 4 ", " 4", "Some description boyd44 ",R.drawable.ic_launcher_foreground));
+        itemList.add(new ShopDataModel("Product 5 ", " 5", "Some description boyd 5",R.drawable.ic_launcher_background));
         return itemList;
 
     }

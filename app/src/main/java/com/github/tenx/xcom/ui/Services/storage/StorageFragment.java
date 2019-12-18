@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.Services.equipments.adapter.EquipmentsAdapter;
-import com.github.tenx.xcom.ui.Services.equipments.adapter.EquipmentsDataModel;
 import com.github.tenx.xcom.ui.Services.storage.adapter.StorageAdapter;
 import com.github.tenx.xcom.ui.Services.storage.adapter.StorageDataModel;
 
@@ -79,14 +77,14 @@ public class StorageFragment extends Fragment {
     private List<StorageDataModel> loadItems() {
         itemList = new ArrayList<>();
 
-        itemList.add(new StorageDataModel("Benz Tractor", "Texas", "500 per day",
+        itemList.add(new StorageDataModel("Benz Tractor", "Texas", "499",
                 R.drawable.ic_launcher_foreground));
 
-        itemList.add(new StorageDataModel("Benz Tractor 2", "Texas 2", "500 per day",
+        itemList.add(new StorageDataModel("Benz Tractor 2", "Texas 2", "500 ",
                  R.drawable.ic_launcher_foreground));
-        itemList.add(new StorageDataModel("Benz Tractor 3", "Texas 3", "500 per day",
+        itemList.add(new StorageDataModel("Benz Tractor 3", "Texas 3", "500",
                  R.drawable.ic_launcher_background));
-        itemList.add(new StorageDataModel("Benz Tractor 4", "Texas 4", "500 per day",
+        itemList.add(new StorageDataModel("Benz Tractor 4", "Texas 4", "500",
                  R.drawable.ic_launcher_background));
 
 

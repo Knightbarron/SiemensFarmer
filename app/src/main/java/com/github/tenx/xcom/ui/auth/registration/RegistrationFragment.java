@@ -4,6 +4,7 @@ package com.github.tenx.xcom.ui.auth.registration;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.auth.RegistrationBody;
+import com.github.tenx.xcom.ui.auth.AuthViewModel;
 import com.github.tenx.xcom.ui.auth.login.LoginFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -51,6 +55,9 @@ public class RegistrationFragment extends Fragment {
     @BindView(R.id.parent_register_ll)
     LinearLayout layout;
 
+    @Inject
+    AuthViewModel viewModel;
+    private static final String TAG = "RegistrationFragment";
 
 
     @Inject
@@ -68,9 +75,31 @@ public class RegistrationFragment extends Fragment {
 
         AndroidSupportInjection.inject(this);
         ButterKnife.bind(this, view);
+        
+        if (viewModel==null)
+            Log.d(TAG, "onCreateView: ViewModel is null");
+        else
+            Log.d(TAG, "onCreateView: ViewModel not null");
+
+        subscribeObserver();
 
 
         return view;
+    }
+
+    private void subscribeObserver() {
+        viewModel.getRegistrationResponse().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    Log.d(TAG, "onChanged: Registration Complete");
+                    spinKit.setVisibility(View.INVISIBLE);
+                    Snackbar.make(layout,"Registration Complete",Snackbar.LENGTH_SHORT).show();
+                }else{
+                    Log.d(TAG, "onChanged: Loading ");
+                }
+            }
+        });
     }
 
     @Override
@@ -122,6 +151,8 @@ public class RegistrationFragment extends Fragment {
         }
 
         //TODO the registration
+        viewModel.registerFarmer(new RegistrationBody(emailStr,passwordStr));
+
 
     }
 

@@ -21,9 +21,9 @@ public abstract class AppRetrofitModule {
             baseUrl(Config.REST_BASE_URL).
             addConverterFactory(GsonConverterFactory.create());
 
-    private static Retrofit retrofit = builder.
-            addCallAdapterFactory(RxJava2CallAdapterFactory.create()).
-            build();
+//    private static Retrofit retrofit = builder.
+//            addCallAdapterFactory(RxJava2CallAdapterFactory.create()).
+//            build();
 
 
 
@@ -31,10 +31,9 @@ public abstract class AppRetrofitModule {
     @Provides
     @Singleton
     static Retrofit provideRetrofit(){
-//        builder = new Retrofit.Builder().baseUrl(Config.REST_BASE_URL).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-//        return builder.build();
+        builder = new Retrofit.Builder().baseUrl(Config.REST_BASE_URL).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+        return builder.build();
 
-        return retrofit;
 
 
     }

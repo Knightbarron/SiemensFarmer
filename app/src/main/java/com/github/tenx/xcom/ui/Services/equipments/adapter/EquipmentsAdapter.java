@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
 import com.github.tenx.xcom.ui.Services.storage.adapter.StorageDataModel;
 
 import java.util.ArrayList;
@@ -19,7 +20,14 @@ import javax.inject.Inject;
 
 public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.EquipmentsViewHolder> {
 
-    private List<EquipmentsDataModel> mList;
+    private List<EquipmentBody> mList;
+
+    private View.OnClickListener onItemClickListener;
+
+    public void setOnItemClickListener(View.OnClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
 
     @Inject
     public EquipmentsAdapter() {
@@ -38,11 +46,13 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Eq
 
     @Override
     public void onBindViewHolder(@NonNull EquipmentsViewHolder holder, int position) {
-        holder.productImage.setImageResource(mList.get(position).getImage());
-        holder.productLocation.setText(mList.get(position).getLocation());
+
+        //TODO image thingy
+        // holder.productImage.setImageResource(mList.get(position));
+        //TODO set the location???
+       // holder.productLocation.setText(mList.get(position));
         holder.productPrice.setText(mList.get(position).getPrice());
-        holder.productManufacturer.setText(mList.get(position).getManufacturer());
-        holder.productName.setText(mList.get(position).getProduct());
+        holder.productName.setText(mList.get(position).getName());
     }
 
     @Override
@@ -52,7 +62,7 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Eq
 
 
 
-    public void updateListData(List<EquipmentsDataModel>  mList){
+    public void updateListData(List<EquipmentBody>  mList){
         this.mList.addAll(mList);
         notifyDataSetChanged();
 
@@ -60,8 +70,9 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Eq
 
     public class EquipmentsViewHolder extends RecyclerView.ViewHolder {
 
+
+
         TextView productName;
-        TextView productManufacturer;
         TextView productPrice;
         TextView productLocation;
         ImageView productImage;
@@ -69,14 +80,17 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Eq
 
         public EquipmentsViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            itemView.setTag(this);
             productName = itemView.findViewById(R.id.tv_product);
-            productManufacturer = itemView.findViewById(R.id.tv_manufactuerer);
-            productPrice = itemView.findViewById(R.id.tv_price);
+            productPrice = itemView.findViewById(R.id.tv_price_main);
             productLocation = itemView.findViewById(R.id.tv_location);
             productImage = itemView.findViewById(R.id.iv_equipments_image);
 
-
+            itemView.setOnClickListener(onItemClickListener);
 
         }
     }
 }
+
+//TODO make the click with the book button

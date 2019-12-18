@@ -1,24 +1,24 @@
 package com.github.tenx.xcom.ui.main;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.ui.Function.FunctionActivity;
 import com.github.tenx.xcom.ui.Services.ServicesActivity;
 import com.github.tenx.xcom.ui.main.recyclerView.HomePageAdapter;
+import com.github.tenx.xcom.ui.main.recyclerView.HomePageAdapter2;
 import com.github.tenx.xcom.ui.main.recyclerView.HomePageItemsModel;
 import com.github.tenx.xcom.utils.Constants;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,12 +42,16 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     HomePageAdapter adapter;
 
+    @Inject
+    HomePageAdapter2 adapter2;
 
 
     ArrayList<HomePageItemsModel> itemList;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.recycler_view2)
+    RecyclerView recyclerView2;
 
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -58,9 +62,27 @@ public class MainActivity extends AppCompatActivity {
             int position = viewHolder.getAdapterPosition();
             Log.d(TAG, "onClick: POsition ::: " + position);
 
-            goToNextActivity(position);
-            
-            if (mainViewModel==null)
+            goToNextActivity(position,true);
+
+            if (mainViewModel == null)
+                Log.d(TAG, "onClick: VIEWMODEL IS EMPTY");
+            else
+                Log.d(TAG, "onClick: VIEWMODEL IS NOT EMPTY");
+
+        }
+    };
+
+    private View.OnClickListener onClickListener2 = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            int position = viewHolder.getAdapterPosition();
+            Log.d(TAG, "onClick: POsition ::: " + position);
+
+            goToNextActivity(position,false);
+
+            if (mainViewModel == null)
                 Log.d(TAG, "onClick: VIEWMODEL IS EMPTY");
             else
                 Log.d(TAG, "onClick: VIEWMODEL IS NOT EMPTY");
@@ -69,19 +91,22 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    private void goToNextActivity(int position) {
-        if (position==0){
+
+
+    private void goToNextActivity(int position,boolean flag) {
+        if (position == 0 && flag==true) {
             Intent intent = new Intent(this, ServicesActivity.class);
             startActivity(intent);
-            CustomIntent.customType(this,"left-to-right");
+            CustomIntent.customType(this, "left-to-right");
             return;
         }
 
         Intent intent = new Intent(this, FunctionActivity.class);
-        intent.putExtra(Constants.SELECTED_ID,position);
+        intent.putExtra(Constants.SELECTED_ID, position);
+        intent.putExtra(Constants.FLAG_BUSINESS,flag);
         startActivity(intent);
 
-        CustomIntent.customType(this,"left-to-right");
+        CustomIntent.customType(this, "left-to-right");
 
 
     }
@@ -98,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        setUpRecycler(recyclerView,adapter);
+        setUpRecycler(recyclerView, adapter);
+        setUpRecycler2(recyclerView2,adapter2);
 
 
         if (mainViewModel == null) {
@@ -112,21 +138,39 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setUpRecycler(RecyclerView recyclerView, HomePageAdapter adapter) {
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(onClickListener);
         adapter.updateListItems(loadItems());
     }
+    private void setUpRecycler2(RecyclerView recyclerView, HomePageAdapter2 adapter) {
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(onClickListener2);
+        adapter.updateListItems(loadItems2());
+    }
 
     private List<HomePageItemsModel> loadItems() {
         itemList = new ArrayList<>();
-        itemList.add(new HomePageItemsModel(R.drawable.services,"Services"));
-        itemList.add(new HomePageItemsModel(R.drawable.scale,"Predict my Production"));
-        itemList.add(new HomePageItemsModel(R.drawable.shop,"Shop"));
-        itemList.add(new HomePageItemsModel(R.drawable.question_mark_,"Post a Question"));
-        itemList.add(new HomePageItemsModel(R.drawable.business_card,"Contact the Experts"));
-        itemList.add(new HomePageItemsModel(R.drawable.articles,"Articles"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_services_purple, "Services"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_shop_purple, "Shop"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_question_mark_purple, "Post a question"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_contact_experts_purple, "Contact the Experts"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_articles_purple, "Articles"));
+
         return itemList;
     }
+    private List<HomePageItemsModel> loadItems2() {
+        itemList = new ArrayList<>();
+        itemList.add(new HomePageItemsModel(R.drawable.ic_notification_purple, "Notifications"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_prediction_purple, "Predict my Production"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_cart_purple,"Your " +
+                "Cart"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_receipt_black_24dp,"Appointments"));
+        //TODO change the icon
+        itemList.add(new HomePageItemsModel(R.drawable.ic_cart_purple,"Lend Equipment"));
+        return itemList;
+    }
+
 
 }

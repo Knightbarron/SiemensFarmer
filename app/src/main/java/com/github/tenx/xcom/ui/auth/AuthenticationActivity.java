@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.ui.auth.login.LoginFragment;
 import com.github.tenx.xcom.ui.auth.registration.RegistrationFragment;
+import com.github.tenx.xcom.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -40,6 +42,21 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
     RegistrationFragment registrationFragment;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        //TODO change the hint colour
+        if (viewModel.getAuthToken()=="")
+        {
+            Log.d(TAG, "onStart: Empty Auth Token.");
+        }else{
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            Log.d(TAG, "onStart: Auth Token not Empty.");
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
@@ -58,7 +75,8 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
         fragmentManager = getSupportFragmentManager();
         initFrag(loginFragment);
 
-        viewModel.setAuthToken("Alpha Beta Gamma delta");
+
+      //  viewModel.setAuthToken("");
         Log.d(TAG, "onCreate: Answer is::: " + viewModel.getAuthToken() );
 
 
@@ -77,4 +95,7 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
         ft.commit();
 
     }
+
+
+
 }

@@ -13,6 +13,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_ACCESS_TOKEN = "pref_key_access_token";
     private static final String EMAIL_ACCESS_KEY = "Myemail";
     private static final String USER_TYPE_KEY = "UserType";
+    public static final String USER_ID = "userId";
 
 
 
@@ -44,13 +45,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return mPrefs.getString(EMAIL_ACCESS_KEY, "");
     }
 
+
+
     @Override
-    public String getTypeUser() {
-        return mPrefs.getString(USER_TYPE_KEY,"");
+    public void setUserId(String userId) {
+        mPrefs.edit().putString(USER_ID,userId).apply();
     }
 
     @Override
-    public void setTypeUser(String userType) {
-        mPrefs.edit().putString(USER_TYPE_KEY,userType).apply();
+    public String getUserId() {
+        return mPrefs.getString(USER_ID,"");
     }
 }

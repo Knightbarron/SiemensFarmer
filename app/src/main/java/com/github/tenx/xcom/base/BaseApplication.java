@@ -5,7 +5,6 @@ import android.app.Application;
 
 import com.github.tenx.xcom.BuildConfig;
 
-
 import com.github.tenx.xcom.di.components.DaggerAppComponent;
 import com.github.tenx.xcom.logging.ReleaseTree;
 

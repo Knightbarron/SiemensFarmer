@@ -6,15 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.Function.articles.adapter.ArticlesAdapter;
+import com.github.tenx.xcom.data.models.functions.equipments.AllEquipmentsResponse;
+import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
+import com.github.tenx.xcom.ui.Services.ServicesViewModel;
 import com.github.tenx.xcom.ui.Services.equipments.adapter.EquipmentsAdapter;
-import com.github.tenx.xcom.ui.Services.equipments.adapter.EquipmentsDataModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +40,17 @@ public class EquipmentsFragment extends Fragment {
 
     @Inject
     EquipmentsAdapter adapter;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
+    @Inject
+    ServicesViewModel viewModel;
+
+    private List<EquipmentBody> itemList;
+
+    //TODO set up the book button.. send the id with a bundle
 
 
-    private List<EquipmentsDataModel> itemList;
 
     @Inject
     public EquipmentsFragment() {
@@ -51,13 +63,43 @@ public class EquipmentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_equipments, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         AndroidSupportInjection.inject(this);
-
-
         setUpRecycler(recyclerView, adapter);
 
+        subscribeObserverStatus();
+        subscribeObserverDataList();
+
+
+
+
         return view;
+    }
+
+    private void subscribeObserverDataList() {
+        viewModel.getAllEquipments().observe(this, new Observer<AllEquipmentsResponse>() {
+            @Override
+            public void onChanged(AllEquipmentsResponse allEquipmentsResponse) {
+                itemList = allEquipmentsResponse.getmList();
+
+                adapter.updateListData(itemList);
+
+            }
+        });
+    }
+
+    private void subscribeObserverStatus() {
+        viewModel.getStatusAllEquipments().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    progressBar.setVisibility(View.GONE);
+                }else{
+
+
+                }
+            }
+        });
     }
 
     @Override
@@ -71,26 +113,10 @@ public class EquipmentsFragment extends Fragment {
     private void setUpRecycler(RecyclerView recyclerView, EquipmentsAdapter adapter) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-
-        adapter.updateListData(loadItems());
     }
 
-    private List<EquipmentsDataModel> loadItems() {
-        itemList = new ArrayList<>();
-
-        itemList.add(new EquipmentsDataModel("Benz Tractor","Texas","500 per day",
-                "Guwahati",R.drawable.ic_launcher_foreground));
-
-        itemList.add(new EquipmentsDataModel("Benz Tractor 2","Texas 2","500 per day",
-                "Guwahati 2",R.drawable.ic_launcher_foreground));
-        itemList.add(new EquipmentsDataModel("Benz Tractor 3","Texas 3","500 per day",
-                "Guwahati 3",R.drawable.ic_launcher_background));
-        itemList.add(new EquipmentsDataModel("Benz Tractor 4","Texas 4","500 per day",
-                "Guwahati 4",R.drawable.ic_launcher_background));
 
 
-        return itemList;
-    }
 
 
 }

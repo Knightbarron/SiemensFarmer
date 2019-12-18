@@ -32,43 +32,5 @@ public class MainViewModel  extends BaseViewModel implements MainViewModelHelper
         this.appDataManager = appDataManager;
     }
 
-    @Override
-    public LiveData<List<UserData>> getEvents() {
-        if(eventsList == null){
-            eventsList = new MutableLiveData<>();
-        }
-        return  eventsList;
-    }
-
-    @Override
-    public void loadEvents() {
-        if(eventsList == null){
-            eventsList = new MutableLiveData<>();
-        }
-
-        appDataManager.getEvents().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<UserData>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        getCompositeDisposable().add(d);
-                    }
-
-                    @Override
-                    public void onNext(List<UserData> userData) {
-                        Log.d(TAG, "onNext: " + userData.size());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "onError: ", e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
 
 }

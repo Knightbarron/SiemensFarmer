@@ -4,16 +4,22 @@ package com.github.tenx.xcom.ui.auth.login;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.auth.LoginBody;
+import com.github.tenx.xcom.ui.auth.AuthViewModel;
 import com.github.tenx.xcom.ui.auth.registration.RegistrationFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -31,6 +37,9 @@ import dagger.android.support.AndroidSupportInjection;
  */
 public class LoginFragment extends Fragment {
 
+
+    private static final String TAG = "LoginFragment";
+
     @BindView(R.id.email)
     TextInputEditText email;
     @BindView(R.id.password)
@@ -46,6 +55,14 @@ public class LoginFragment extends Fragment {
     RegistrationFragment registrationFragment;
     @BindView(R.id.layout)
     LinearLayout layout;
+    @BindView(R.id.spin_kit)
+    ProgressBar spinKit;
+    @BindView(R.id.tv_login_text)
+    TextView tvLoginText;
+
+    @Inject
+    AuthViewModel viewModel;
+
 
 
     @Inject
@@ -64,8 +81,26 @@ public class LoginFragment extends Fragment {
         AndroidSupportInjection.inject(this);
         ButterKnife.bind(this, view);
 
+        subscribeObservers();
+
 
         return view;
+    }
+
+    private void subscribeObservers() {
+        viewModel.getLoginResponse().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+
+                    Log.d(TAG, "onChanged: Login Complete");
+                    spinKit.setVisibility(View.INVISIBLE);
+                    Snackbar.make(layout,"Login Complete",Snackbar.LENGTH_SHORT).show();
+                }else{
+                    Log.d(TAG, "onChanged: Loading ");
+                }
+            }
+        });
     }
 
 
@@ -116,7 +151,9 @@ public class LoginFragment extends Fragment {
             return;
         }
 
+        spinKit.setVisibility(View.INVISIBLE);
         //TODO the signIn
+        viewModel.loginFarmer(new LoginBody(emailStr,passwordStr));
 
 
 

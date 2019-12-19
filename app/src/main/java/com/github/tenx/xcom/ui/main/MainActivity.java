@@ -169,6 +169,9 @@ public class MainActivity extends AppCompatActivity {
         itemList.add(new HomePageItemsModel(R.drawable.ic_receipt_black_24dp,"Appointments"));
         //TODO change the icon
         itemList.add(new HomePageItemsModel(R.drawable.ic_cart_purple,"Lend Equipment"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_person_black_24dp,"My account"));
+
+
         return itemList;
     }
 

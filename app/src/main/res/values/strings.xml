@@ -12,7 +12,7 @@
 
     <string name="edittext_email"><font size="12">Email</font></string>
     <string name="edittext_password"><font size="12">Password</font></string>
-    <string name="edittext_cnf_password"><font size="12">Confirm Password</font></string>
+    <string name="edittext_full_name"><font size="12">Full Name</font></string>
 
     <string name="edittext_location"><font size="8">Location</font></string>
     <string name="edittext_time"><font size="8">Time</font></string>

@@ -2,6 +2,7 @@ package com.github.tenx.xcom.ui.auth.registration;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -21,9 +23,11 @@ import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.data.models.auth.RegistrationBody;
 import com.github.tenx.xcom.ui.auth.AuthViewModel;
 import com.github.tenx.xcom.ui.auth.login.LoginFragment;
+import com.github.tenx.xcom.ui.main.MainActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import javax.inject.Inject;
 
@@ -42,8 +46,6 @@ public class RegistrationFragment extends Fragment {
     TextInputEditText email;
     @BindView(R.id.password)
     TextInputEditText password;
-    @BindView(R.id.confirmpassword)
-    TextInputEditText confirmpassword;
     @BindView(R.id.spin_kit)
     ProgressBar spinKit;
     @BindView(R.id.register)
@@ -58,6 +60,24 @@ public class RegistrationFragment extends Fragment {
     @Inject
     AuthViewModel viewModel;
     private static final String TAG = "RegistrationFragment";
+
+
+    @BindView(R.id.tv_text_input_3)
+    TextInputLayout tvTextInput3;
+    @BindView(R.id.tv_text_input_l)
+    TextInputLayout tvTextInputL;
+    @BindView(R.id.tv_text_input_2)
+    TextInputLayout tvTextInput2;
+    @BindView(R.id.email_reg_form)
+    LinearLayout emailRegForm;
+    @BindView(R.id.login_form)
+    ScrollView loginForm;
+    @BindView(R.id.first_name)
+    TextInputEditText firstName;
+    @BindView(R.id.tv_text_input_4)
+    TextInputLayout tvTextInput4;
+    @BindView(R.id.last_name)
+    TextInputEditText lastName;
 
 
     @Inject
@@ -75,8 +95,8 @@ public class RegistrationFragment extends Fragment {
 
         AndroidSupportInjection.inject(this);
         ButterKnife.bind(this, view);
-        
-        if (viewModel==null)
+
+        if (viewModel == null)
             Log.d(TAG, "onCreateView: ViewModel is null");
         else
             Log.d(TAG, "onCreateView: ViewModel not null");
@@ -91,11 +111,16 @@ public class RegistrationFragment extends Fragment {
         viewModel.getRegistrationResponse().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
+                if (aBoolean) {
                     Log.d(TAG, "onChanged: Registration Complete");
                     spinKit.setVisibility(View.INVISIBLE);
-                    Snackbar.make(layout,"Registration Complete",Snackbar.LENGTH_SHORT).show();
-                }else{
+                    Snackbar.make(layout, "Registration Complete", Snackbar.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+
+                } else {
                     Log.d(TAG, "onChanged: Loading ");
                 }
             }
@@ -125,35 +150,41 @@ public class RegistrationFragment extends Fragment {
 
     private void doRegister() {
 
-        spinKit.setVisibility(View.VISIBLE);
 
         String emailStr = email.getText().toString();
         String passwordStr = password.getText().toString();
-        String cnfPasswordStr = confirmpassword.getText().toString();
+        String firstNameStr = firstName.getText().toString();
+        String lastNameStr = lastName.getText().toString();
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()){
-            Snackbar.make(layout,"Enter valid Email",Snackbar.LENGTH_LONG).show();
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
+            Snackbar.make(layout, "Enter valid Email", Snackbar.LENGTH_LONG).show();
             return;
         }
 
-        if (TextUtils.isEmpty(passwordStr) || TextUtils.isEmpty(cnfPasswordStr)){
-            Snackbar.make(layout,"Enter valid Password",Snackbar.LENGTH_LONG).show();
-            return;
-        }
-        if (passwordStr.length()<6 ){
-            Snackbar.make(layout,"Password should have atleast 6 literals",Snackbar.LENGTH_LONG).show();
-            return;
-        }
-        if (!passwordStr.equals(cnfPasswordStr)){
 
-            Snackbar.make(layout,"Passwords do not natch",Snackbar.LENGTH_LONG).show();
+        if (passwordStr.length() < 6) {
+            Snackbar.make(layout, "Password should have atleast 6 literals", Snackbar.LENGTH_LONG).show();
             return;
         }
 
+        if (TextUtils.isEmpty(firstNameStr) ) {
+            Snackbar.make(layout, "Enter First name", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(lastNameStr) ) {
+            Snackbar.make(layout, "Enter Last name", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
+        spinKit.setVisibility(View.VISIBLE);
         //TODO the registration
-        viewModel.registerFarmer(new RegistrationBody(emailStr,passwordStr));
+        //  viewModel.registerFarmer(new RegistrationBody(emailStr, passwordStr,fullnameStr));
+     //   viewModel.registerFarmer(new RegistrationBody(emailStr, passwordStr));
 
 
+        viewModel.registerFarmer(new RegistrationBody(emailStr,passwordStr,firstNameStr,lastNameStr));
     }
 
     //TODO shit code

@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.ui.Function.notification.adapter.NotificationRecyclerAdapter;
 import com.github.tenx.xcom.ui.Function.singleNotification.FarmerSingleNotificationFragment;
-import com.github.tenx.xcom.ui.business.funcnatilies.notification.adapter.NotificationDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +36,8 @@ public class FarmerNotificationFragment extends Fragment {
 
     @Inject
     NotificationRecyclerAdapter adapter;
-
-    ArrayList<NotificationDataModel> itemList;
+//
+//    ArrayList<NotificationDataModel> itemList;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
@@ -109,18 +108,9 @@ public class FarmerNotificationFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(onClickListener);
-        adapter.updateListItems(loadItems());
+      //  adapter.updateListItems(loadItems());
     }
 
-    private List<NotificationDataModel> loadItems() {
-        itemList = new ArrayList<>();
-        itemList.add(new NotificationDataModel("Person a", "Body a"));
-        itemList.add(new NotificationDataModel("Person 2", "Body a"));
-        itemList.add(new NotificationDataModel("Person 3", "Body 2"));
-        itemList.add(new NotificationDataModel("Person 4", "Body 1"));
-        itemList.add(new NotificationDataModel("Person 5", "Body a"));
-        return itemList;
-    }
 
 
 

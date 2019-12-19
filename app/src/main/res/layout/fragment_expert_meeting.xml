@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/layout"
     android:layout_margin="20dp"
     tools:context=".ui.Function.meetingTheExpert.ExpertMeetingFragment">
 
@@ -20,24 +21,10 @@
             android:fontFamily="@font/roboto_thin"
             android:hint="@string/edittext_location"
             android:id="@+id/tv_location"
-
+            android:textColor="@color/text_colour"
             android:layout_height="40dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/editTextStyle"
-        android:id="@+id/line2"
-        android:layout_marginTop="5dp"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:hint="@string/edittext_time"
-            android:id="@+id/tv_time"
-            android:textSize="13sp"
-            android:fontFamily="@font/roboto_thin"
-            android:layout_height="40dp"/>
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/editTextStyle"
@@ -47,6 +34,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:textSize="13sp"
+            android:textColor="@color/text_colour"
             android:fontFamily="@font/roboto_thin"
             android:hint="@string/edittext_special_requirements"
             android:id="@+id/tv_special_requirements"
@@ -56,10 +44,56 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pick a date:"
+        android:id="@+id/tv_pick_time"
+        android:text="Pick a time:"
+        android:textSize="16sp"
+        android:fontFamily="@font/roboto"
+        android:layout_marginTop="10dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/show_tv_time"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/roboto"
+        android:textSize="20sp"
+
+        android:textColor="@color/text_colour"
+        tools:text="Kiba kibi date thakibo ayat"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick a date:"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_Pick_date"
         android:fontFamily="@font/roboto"
         android:textSize="16sp"/>
+
+
+    <TimePicker
+        android:id="@+id/simpleTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="#090"
+        android:visibility="gone"
+        android:padding="20dp"
+        android:timePickerMode="spinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:id="@+id/showDate"
+        android:textSize="18sp"
+        android:textColor="@color/text_colour"
+        tools:text="Kiba ata date thakibo ayate"
+        android:layout_marginTop="5dp"
+        />
 
     <ProgressBar
         android:id="@+id/spin_kit"
@@ -81,10 +115,11 @@
         android:text="Book an appointment"
         android:gravity="center"
         android:id="@+id/singin"
+        android:fontFamily="@font/roboto"
         android:textColor="#FAFAFA"
         android:textSize="18sp"
         android:textAllCaps="false"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"/>
 
 </LinearLayout>

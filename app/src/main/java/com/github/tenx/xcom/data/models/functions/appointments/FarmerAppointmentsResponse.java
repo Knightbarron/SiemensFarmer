@@ -42,14 +42,50 @@ public class FarmerAppointmentsResponse {
         @SerializedName("_id")
         private String id;
 
-        @SerializedName("farmer")
-        private String farmerId;
-
-        @SerializedName("expert")
-        private String expertId;
 
         @SerializedName("price")
         private String price;
+
+        @SerializedName("expert")
+        private Expert expert;
+
+        public boolean isConfirmStatus() {
+            return confirmStatus;
+        }
+
+        public Expert getExpert() {
+            return expert;
+        }
+
+        public void setExpert(Expert expert) {
+            this.expert = expert;
+        }
+
+        public class Expert{
+
+
+            @SerializedName("firstName")
+            private String firstName;
+
+            @SerializedName("lastName")
+            private String lastName;
+
+            public String getFirstName() {
+                return firstName;
+            }
+
+            public void setFirstName(String firstName) {
+                this.firstName = firstName;
+            }
+
+            public String getLastName() {
+                return lastName;
+            }
+
+            public void setLastName(String lastName) {
+                this.lastName = lastName;
+            }
+        }
 
         public boolean getConfirmStatus() {
             return confirmStatus;
@@ -67,21 +103,6 @@ public class FarmerAppointmentsResponse {
             this.id = id;
         }
 
-        public String getFarmerId() {
-            return farmerId;
-        }
-
-        public void setFarmerId(String farmerId) {
-            this.farmerId = farmerId;
-        }
-
-        public String getExpertId() {
-            return expertId;
-        }
-
-        public void setExpertId(String expertId) {
-            this.expertId = expertId;
-        }
 
         public String getPrice() {
             return price;
@@ -91,11 +112,10 @@ public class FarmerAppointmentsResponse {
             this.price = price;
         }
 
-        public AppointmentBody(boolean confirmStatus, String id, String farmerId, String expertId, String price) {
+        public AppointmentBody(boolean confirmStatus, String id, String price) {
             this.confirmStatus = confirmStatus;
             this.id = id;
-            this.farmerId = farmerId;
-            this.expertId = expertId;
+
             this.price = price;
         }
     }

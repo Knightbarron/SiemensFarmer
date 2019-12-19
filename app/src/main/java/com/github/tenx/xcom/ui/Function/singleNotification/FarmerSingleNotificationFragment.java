@@ -58,16 +58,6 @@ public class FarmerSingleNotificationFragment extends Fragment {
     }
 
 
-    public void setColor(boolean flag){
-
-        if (flag){
-
-            //TODO set greeen color
-        }else{
-
-            //TODO set red color
-        }
-    }
 
     @Override
     public void onAttach(Context context) {

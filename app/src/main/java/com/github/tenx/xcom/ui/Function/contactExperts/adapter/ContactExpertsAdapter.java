@@ -42,8 +42,15 @@ public class ContactExpertsAdapter extends RecyclerView.Adapter<ContactExpertsAd
 
     @Override
     public void onBindViewHolder(@NonNull ContactExpertViewHolder holder, int position) {
-            holder.expertName.setText(mList.get(position).getName());
-            holder.expertImage.setImageResource(mList.get(position).getProfilePic());
+
+
+            String fName = mList.get(position).getFirstName();
+            String lName = mList.get(position).getLastName();
+            String name = fName + " " + lName;
+
+            holder.expertName.setText(name);
+
+            holder.expertImage.setImageResource(R.drawable.agtech);
     }
 
     @Override
@@ -51,8 +58,9 @@ public class ContactExpertsAdapter extends RecyclerView.Adapter<ContactExpertsAd
         return mList.size();
     }
 
-    public void updateListData(List<ExpertProfileBody>  mList){
-        this.mList.addAll(mList);
+    public void updateListData(List<ExpertProfileBody>  data){
+        mList.clear();
+        this.mList.addAll(data);
         notifyDataSetChanged();
 
     }

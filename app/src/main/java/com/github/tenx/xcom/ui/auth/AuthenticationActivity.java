@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.ui.auth.login.LoginFragment;
 import com.github.tenx.xcom.ui.auth.registration.RegistrationFragment;
 import com.github.tenx.xcom.ui.main.MainActivity;
@@ -40,6 +41,8 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
 
     @Inject
     RegistrationFragment registrationFragment;
+
+    AppPreferencesHelper appPreferencesHelper;
 
     @Override
     protected void onStart() {
@@ -73,7 +76,8 @@ public class AuthenticationActivity extends AppCompatActivity implements HasSupp
 
 
         fragmentManager = getSupportFragmentManager();
-        initFrag(loginFragment);
+        initFrag(registrationFragment);
+
 
 
       //  viewModel.setAuthToken("");

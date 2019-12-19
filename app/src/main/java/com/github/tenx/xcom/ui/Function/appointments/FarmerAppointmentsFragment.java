@@ -7,11 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +20,7 @@ import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointment
 import com.github.tenx.xcom.ui.Function.FunctionViewModel;
 import com.github.tenx.xcom.ui.Function.appointments.adapter.FarmerAppointmentsAdapter;
 import com.github.tenx.xcom.ui.Function.singleNotification.FarmerSingleNotificationFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -50,6 +51,8 @@ public class FarmerAppointmentsFragment extends Fragment {
 
     @Inject
     FunctionViewModel viewModel;
+    @BindView(R.id.layout)
+    LinearLayout layout;
 
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -62,7 +65,7 @@ public class FarmerAppointmentsFragment extends Fragment {
 
             //  goToNextActivity(position);
 
-            initializeFragments(farmerSingleNotificationFragment);
+         //   initializeFragments(farmerSingleNotificationFragment);
         }
     };
 
@@ -100,13 +103,12 @@ public class FarmerAppointmentsFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
 
-        setUpRecycler(recyclerView,adapter);
+        setUpRecycler(recyclerView, adapter);
         viewModel.getAllAppointments();
-        viewModel.getStatusFarmerrAppointmentsResponse();
+        //  viewModel.getStatusFarmerrAppointmentsResponse();
 
         subscribeObserversForAppointmentsList();
         subscribeObserversForAppointmentStatus();
-
 
 
         return view;
@@ -114,11 +116,12 @@ public class FarmerAppointmentsFragment extends Fragment {
 
     private void subscribeObserversForAppointmentStatus() {
         viewModel.getStatusFarmerrAppointmentsResponse().observe(this, aBoolean -> {
-            if (aBoolean){
+            if (aBoolean) {
                 progressBar.setVisibility(View.GONE);
 
-            }else{
-
+            } else {
+                progressBar.setVisibility(View.GONE);
+                Snackbar.make(layout,"Some error occured.",Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -151,7 +154,6 @@ public class FarmerAppointmentsFragment extends Fragment {
         adapter.setOnItemClickListener(onClickListener);
 
     }
-
 
 
 }

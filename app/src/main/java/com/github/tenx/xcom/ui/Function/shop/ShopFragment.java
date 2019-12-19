@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.products.ProductsBody;
 import com.github.tenx.xcom.ui.Function.shop.adapter.ShopAdapter;
-import com.github.tenx.xcom.ui.Function.shop.adapter.ShopDataModel;
 import com.github.tenx.xcom.ui.Function.singleItemShop.SingleItemShopFragment;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class ShopFragment extends Fragment {
     @Inject
     ShopAdapter adapter;
 
-    ArrayList<ShopDataModel> itemList;
+    ArrayList<ProductsBody> itemList;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -108,19 +108,9 @@ public class ShopFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(onClickListener);
-        adapter.updateListItems(loadItems());
-    }
-
-    private List<ShopDataModel> loadItems() {
-
-        itemList.add(new ShopDataModel("Product 1 ", "1", "Some description boyd",R.drawable.ic_my_location));
-        itemList.add(new ShopDataModel("Product 2 ", " 11", "Some description boyd 22",R.drawable.ic_launcher_foreground));
-        itemList.add(new ShopDataModel("Product 3 ", " 12", "Some description boyd33",R.drawable.ic_launcher_background));
-        itemList.add(new ShopDataModel("Product 4 ", " 4", "Some description boyd44 ",R.drawable.ic_launcher_foreground));
-        itemList.add(new ShopDataModel("Product 5 ", " 5", "Some description boyd 5",R.drawable.ic_launcher_background));
-        return itemList;
 
     }
+
 
 
 }

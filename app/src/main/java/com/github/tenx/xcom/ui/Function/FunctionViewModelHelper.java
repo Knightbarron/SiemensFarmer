@@ -9,6 +9,8 @@ import com.github.tenx.xcom.data.models.functions.appointments.ExpertProfileBody
 import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsResponse;
 import com.github.tenx.xcom.data.models.functions.equipments.AllEquipmentsResponse;
 import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
+import com.github.tenx.xcom.data.models.functions.profile.MyProfileBody;
+import com.github.tenx.xcom.data.models.products.GetAllProductsResponse;
 
 public interface FunctionViewModelHelper {
 
@@ -23,4 +25,8 @@ public interface FunctionViewModelHelper {
     LiveData<Boolean> statusCreateEquipment();
 
     LiveData<AllEquipmentsResponse> getEquipmentsForFarmer();
+
+    LiveData<GetAllProductsResponse> getAllProducts();
+
+    LiveData<Boolean> patchMyProfile( );
 }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.data.models.functions.appointments.AllExpertsResponse;
 import com.github.tenx.xcom.data.models.functions.appointments.ExpertProfileBody;
+import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.ui.Function.FunctionViewModel;
 import com.github.tenx.xcom.ui.Function.contactExperts.adapter.ContactExpertsAdapter;
 import com.github.tenx.xcom.ui.Function.singleExpert.SingleExpertFragment;
@@ -35,6 +37,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -77,11 +80,16 @@ public class ContactExpertsFragment extends Fragment {
     @BindView(R.id.progressbar)
     ProgressBar progressbar;
 
+
+    AppPreferencesHelper appPreferencesHelper;
+
     @Inject
     FunctionViewModel viewModel;
 
     @Inject
     SingleExpertFragment singleExpertFragment;
+    @BindView(R.id.layout)
+    LinearLayout layout;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -96,10 +104,10 @@ public class ContactExpertsFragment extends Fragment {
 
 
             //  goToNextActivity(position);
-            String idForTheExpert =  itemList.get(position).getId();
+            String idForTheExpert = itemList.get(position).getId();
 
             Bundle bundle = new Bundle();
-            bundle.putString(Constants.SEND_ID_TO_SINGLE_EXPERT,idForTheExpert);
+            bundle.putString(Constants.SEND_ID_TO_SINGLE_EXPERT, idForTheExpert);
             singleExpertFragment.setArguments(bundle);
 
             initializeFragments(singleExpertFragment);
@@ -112,9 +120,9 @@ public class ContactExpertsFragment extends Fragment {
         String backStateName = frag.getClass().toString();
         //Log.d(TAG, "onBtnOtpLoginClicked: " + backStateName);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right,R.anim.enter_from_right,R.anim.exit_to_right);
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
 
-        transaction.replace(R.id.frame_layout,frag);
+        transaction.replace(R.id.frame_layout, frag);
         transaction.addToBackStack(backStateName);
 
         transaction.commit();
@@ -139,6 +147,7 @@ public class ContactExpertsFragment extends Fragment {
         progressbar.setVisibility(View.INVISIBLE);
 
 
+      //  Log.d(TAG, "onCreateView: " + appPreferencesHelper.getAccessToken());
         subscribeObserverForListStatus();
         subscribeObserverForTheExpertList();
 
@@ -161,10 +170,10 @@ public class ContactExpertsFragment extends Fragment {
         viewModel.getStatusAllExperts().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
+                if (aBoolean) {
                     progressbar.setVisibility(View.GONE);
                     Log.d(TAG, "onChanged: Success in retriving the data");
-                }else{
+                } else {
 
                 }
             }
@@ -187,9 +196,16 @@ public class ContactExpertsFragment extends Fragment {
     }
 
 
-
     @OnClick(R.id.btn_search)
     public void onViewClicked() {
+
+        String locationaName = locationText.getText().toString();
+        if (locationaName.isEmpty()){
+            Snackbar.make(layout,"Please enter a location.",Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+
         progressbar.setVisibility(View.VISIBLE);
         setUpRecycler(recyclerView, adapter);
         progressbar.setVisibility(View.GONE);
@@ -205,7 +221,7 @@ public class ContactExpertsFragment extends Fragment {
 
     private void attemptPermission() {
 
-        Dexter.withActivity(getActivity()).withPermissions(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION).withListener(new MultiplePermissionsListener() {
+        Dexter.withActivity(getActivity()).withPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).withListener(new MultiplePermissionsListener() {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
                 attemptLocation();
@@ -221,28 +237,28 @@ public class ContactExpertsFragment extends Fragment {
     private void attemptLocation() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
 
-        try{
+        try {
 
             Task location = fusedLocationProviderClient.getLastLocation();
             location.addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Log.d(TAG, "onComplete: found location..");
                         Location currentLocation = (Location) task.getResult();
                         Log.d(TAG, "onComplete: LAtitude is : " + currentLocation.getLatitude() +
                                 " Longitude  : " + currentLocation.getLongitude());
 
-                        getAddressFromLocation(currentLocation.getLatitude(),currentLocation.getLongitude());
-                    }else{
+                        getAddressFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    } else {
                         Log.d(TAG, "onComplete: curretn location is null");
-                        Toast.makeText(getActivity(),"Unable to get location",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Unable to get location", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }) ;
+            });
 
 
-        }catch (SecurityException e){
+        } catch (SecurityException e) {
             Log.d(TAG, "attemptLocation: Security Exception : " + e.getMessage());
         }
     }
@@ -252,10 +268,10 @@ public class ContactExpertsFragment extends Fragment {
         Geocoder geocoder = new Geocoder(getContext(), Locale.ENGLISH);
 
 
-        try{
-            List<Address> addresses = geocoder.getFromLocation(latitude,longitude,1);
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-            if (addresses.size()>0){
+            if (addresses.size() > 0) {
                 Address fetchedAddress = addresses.get(0);
                 StringBuilder strAddress = new StringBuilder();
 
@@ -269,17 +285,16 @@ public class ContactExpertsFragment extends Fragment {
                 locationText.setText(fetchedAddress.getLocality());
 
 
-            }else{
-                Log.d(TAG, "getAddressFromLocation: Searching for location" );
+            } else {
+                Log.d(TAG, "getAddressFromLocation: Searching for location");
             }
 
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG, "getAddressFromLocation: COuld not get Address");
         }
     }
-
 
 
 }

@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.business.funcnatilies.notification.adapter.NotificationDataModel;
+import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsResponse;
+import com.github.tenx.xcom.ui.business.funcnatilies.BusinessFunctionViewModel;
 import com.github.tenx.xcom.ui.business.funcnatilies.notification.adapter.NotificationRecyclerAdapter;
 import com.github.tenx.xcom.ui.business.funcnatilies.singleNotification.BusSingleNotificationFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,11 +38,14 @@ public class NotificationsFragment extends Fragment {
 
     private static final String TAG = "NotificationsFragment";
 
-    ArrayList<NotificationDataModel> itemList;
+    ArrayList<FarmerAppointmentsResponse.AppointmentBody> itemList;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    @Inject
+    BusinessFunctionViewModel viewModel;
 
     @Inject
     BusSingleNotificationFragment busSingleNotificationFragment;
@@ -99,8 +102,39 @@ public class NotificationsFragment extends Fragment {
         setUpRecycler(recyclerView,adapter);
 
 
+
+        subscribeObserversForAppointmentsList();
+        subscribeObserversForAppointmentStatus();
+
+
         return view;
     }
+
+
+    private void subscribeObserversForAppointmentStatus() {
+//        viewModel().observe(this, aBoolean -> {
+//            if (aBoolean){
+//                progressBar.setVisibility(View.GONE);
+//
+//            }else{
+//
+//            }
+//        });
+    }
+
+    //TODO check this
+
+    private void subscribeObserversForAppointmentsList() {
+//        viewModel.getAppointmentsForFarmer().observe(this, farmerAppointmentsResponse -> {
+//            itemList = farmerAppointmentsResponse.getmList();
+//
+//            Log.d(TAG, "onChanged: " + itemList.size());
+//
+//            adapter.updateListItems(itemList);
+//
+//        });
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -113,18 +147,12 @@ public class NotificationsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(onClickListener);
-        adapter.updateListItems(loadItems());
+
+
+
     }
 
-    private List<NotificationDataModel> loadItems() {
-        itemList = new ArrayList<>();
-        itemList.add(new NotificationDataModel("Person a", "Body a"));
-        itemList.add(new NotificationDataModel("Person 2", "Body a"));
-        itemList.add(new NotificationDataModel("Person 3", "Body 2"));
-        itemList.add(new NotificationDataModel("Person 4", "Body 1"));
-        itemList.add(new NotificationDataModel("Person 5", "Body a"));
-        return itemList;
-    }
+
 
 
 }

@@ -12,11 +12,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.ui.Function.appointments.FarmerAppointmentsFragment;
 import com.github.tenx.xcom.ui.Function.cart.CartFragment;
 import com.github.tenx.xcom.ui.Function.createEquipments.CreateEquipmentFragment;
+import com.github.tenx.xcom.ui.Function.meetingTheExpert.ExpertMeetingFragment;
 import com.github.tenx.xcom.ui.Function.myEquipments.MyEquipments;
 import com.github.tenx.xcom.ui.Function.notification.FarmerNotificationFragment;
+import com.github.tenx.xcom.ui.Function.profile.MyProfileFragment;
 import com.github.tenx.xcom.ui.Function.shop.ShopFragment;
 import com.github.tenx.xcom.ui.Function.articles.ArticlesFragment;
 import com.github.tenx.xcom.ui.Function.contactExperts.ContactExpertsFragment;
@@ -72,6 +75,15 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
     @Inject
     MyEquipments myEquipmentsFragment;
 
+    @Inject
+    ExpertMeetingFragment expertMeetingFragment;
+
+    @Inject
+    AppPreferencesHelper preferencesHelper;
+
+    @Inject
+    MyProfileFragment myProfileFragment;
+
     int flagId = 0;
     boolean flagState = true;
     @BindView(R.id.titleText)
@@ -94,15 +106,20 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
             Log.d(TAG, "onCreate: ViewModel is not empty");
 
 
+
+
         flagId = getIntent().getExtras().getInt(Constants.SELECTED_ID);
         flagState = getIntent().getExtras().getBoolean(Constants.FLAG_BUSINESS);
 
         fragmentManager = getSupportFragmentManager();
 
+        Log.d(TAG, "onCreate: Preferences::: Token id::: " +preferencesHelper.getAccessToken());
         inititalizeFragment(flagId,flagState);
         Log.d(TAG, "onCreate: Flag id ::: " + flagId);
 
-        Log.d(TAG, "onCreate: " + viewModel.getString());
+        Log.d(TAG, "onCreate: Reached here.");
+
+       // Log.d(TAG, "onCreate: " + appPreferencesHelper.getAccessToken());
 
 
 
@@ -162,6 +179,9 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
                     initFrag(myEquipmentsFragment);
                     setUpToolBar("Lend Equipment");
                     break;
+                case 5:initFrag(myProfileFragment);
+                setUpToolBar("My Profile");
+                break;
             }
 
         }

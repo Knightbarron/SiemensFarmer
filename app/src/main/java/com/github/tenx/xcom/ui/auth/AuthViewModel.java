@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.github.tenx.xcom.base.BaseViewModel;
 import com.github.tenx.xcom.data.AppDataManager;
+import com.github.tenx.xcom.data.models.DefaultResponse;
 import com.github.tenx.xcom.data.models.auth.LoginBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationResponse;
@@ -43,12 +44,6 @@ public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper 
             loginResponse = new MutableLiveData<>();
         return loginResponse;
     }
-
-
-
-
-
-
 
 
     public AuthViewModel(AppDataManager dataManager) {
@@ -107,7 +102,8 @@ public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper 
             @Override
             public void onNext(Response<RegistrationResponse> registrationResponseResponse) {
 
-                if (registrationResponseResponse.code()==201){
+                if (registrationResponseResponse.code()==200){
+
                     setAuthToken(registrationResponseResponse.body().getToken());
                     setUserEmail(registrationResponseResponse.body().getmData().getEmail());
                     setUserId(registrationResponseResponse.body().getmData().getId());
@@ -145,19 +141,17 @@ public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper 
 
         appDataManager.loginFarmer(loginBody).subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Observer<Response<RegistrationResponse>>() {
+                subscribe(new Observer<Response<DefaultResponse>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         getCompositeDisposable().add(d);
                     }
 
                     @Override
-                    public void onNext(Response<RegistrationResponse> registrationResponseResponse) {
+                    public void onNext(Response<DefaultResponse> registrationResponseResponse) {
                             if (registrationResponseResponse.code()==200){
 
                                 setAuthToken(registrationResponseResponse.body().getToken());
-                                setUserEmail(registrationResponseResponse.body().getmData().getEmail());
-                                setUserId(registrationResponseResponse.body().getmData().getId());
 
                                 loginResponse.setValue(true);
 

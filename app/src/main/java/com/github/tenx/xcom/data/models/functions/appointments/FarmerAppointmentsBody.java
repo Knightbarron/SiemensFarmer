@@ -1,11 +1,24 @@
 package com.github.tenx.xcom.data.models.functions.appointments;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FarmerAppointmentsBody {
-    private String location;
-    private String date;
 
+    @SerializedName("location")
+    private String location;
+    @SerializedName("price")
+    private int price;
+    @SerializedName("description")
+    private String description;
+
+    public FarmerAppointmentsBody(String location, int price, String description) {
+        this.location = location;
+        this.price = price;
+        this.description = description;
+    }
 
     public String getLocation() {
         return location;
@@ -15,16 +28,21 @@ public class FarmerAppointmentsBody {
         this.location = location;
     }
 
-    public String getDate() {
-        return date;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getDescription() {
+        return description;
     }
 
-    public FarmerAppointmentsBody(String location, String date) {
-        this.location = location;
-        this.date = date;
+    public void setDescription(String description) {
+        this.description = description;
     }
+
+    public int getPrice() {
+        return price;
+    }
+
+
 }

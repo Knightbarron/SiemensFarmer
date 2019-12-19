@@ -1,4 +1,4 @@
-package com.github.tenx.xcom.ui.Function.appointments.adapter;
+package com.github.tenx.xcom.ui.business.funcnatilies.appointments.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class FarmerAppointmentsAdapter extends RecyclerView.Adapter<FarmerAppointmentsAdapter.CartViewHolder> {
+public class BusinessAppointmentsAdapter extends RecyclerView.Adapter<BusinessAppointmentsAdapter.CartViewHolder> {
 
     private List<FarmerAppointmentsResponse.AppointmentBody> mList;
     private View.OnClickListener onItemClickListener;
@@ -25,7 +25,7 @@ public class FarmerAppointmentsAdapter extends RecyclerView.Adapter<FarmerAppoin
     private static final String TAG = "CartAdapter";
 
     @Inject
-    public FarmerAppointmentsAdapter(){
+    public BusinessAppointmentsAdapter(){
         mList = new ArrayList<>();
     }
 
@@ -46,23 +46,13 @@ public class FarmerAppointmentsAdapter extends RecyclerView.Adapter<FarmerAppoin
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         //TODO do the glide part
         //TODO handle full name of the user,description
-//        holder.name.setText(mList.get(position));
+       // holder.name.setText(mList.get(position).getExpertId());
 //        holder.price.setText(mList.get(position));
-        if (mList.get(position).getConfirmStatus()) {
-
-            String fName = mList.get(position).getExpert().getFirstName();
-            String lName = mList.get(position).getExpert().getLastName();
-            String fullName = fName + " " + lName;
-            holder.name.setText(fullName);
-            //holder.price.setText();
-
-        }else{
-
-        }
-//      if (mList.get(position).getConfirmStatus())
-//          holder.price.setText("Accepted");
-//      else
-//          holder.price.setText("Not Decided");
+      boolean b = mList.get(position).getConfirmStatus();
+      if (b)
+          holder.price.setText("Accepted");
+      else
+          holder.price.setText("Rejected");
 
     }
 
@@ -71,9 +61,8 @@ public class FarmerAppointmentsAdapter extends RecyclerView.Adapter<FarmerAppoin
         return mList.size();
     }
 
-    public void updateListItems(List<FarmerAppointmentsResponse.AppointmentBody> data){
-        mList.clear();
-        this.mList.addAll(data);
+    public void updateListItems(List<FarmerAppointmentsResponse.AppointmentBody> mList){
+        this.mList.addAll(mList);
         notifyDataSetChanged();
     }
 
@@ -92,7 +81,6 @@ public class FarmerAppointmentsAdapter extends RecyclerView.Adapter<FarmerAppoin
             name = itemView.findViewById(R.id.tv_name);
             price = itemView.findViewById(R.id.tv_notifications_type);
             profilePic = itemView.findViewById(R.id.profile_pic);
-
 
 
             itemView.setOnClickListener(onItemClickListener);

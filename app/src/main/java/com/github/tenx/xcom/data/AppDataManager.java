@@ -11,9 +11,12 @@ import com.github.tenx.xcom.data.models.functions.appointments.AllExpertsRespons
 import com.github.tenx.xcom.data.models.functions.appointments.ExpertProfileBody;
 import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsBody;
 import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsResponse;
+import com.github.tenx.xcom.data.models.functions.appointments.ResponseForAppointmentCreation;
 import com.github.tenx.xcom.data.models.functions.equipments.AllEquipmentsResponse;
 import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
 import com.github.tenx.xcom.data.models.functions.equipments.OrderEquipmentBody;
+import com.github.tenx.xcom.data.models.functions.profile.MyProfileBody;
+import com.github.tenx.xcom.data.models.products.GetAllProductsResponse;
 import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.data.rest.events.AppEventHelper;
 import com.github.tenx.xcom.di.scopes.ApplicationContext;
@@ -49,7 +52,7 @@ public class AppDataManager implements  AppDataManagerHelper{
     }
 
     @Override
-    public Observable<Response<RegistrationResponse>> loginFarmer(LoginBody body) {
+    public Observable<Response<DefaultResponse>> loginFarmer(LoginBody body) {
         return eventHelper.loginFarmer(body);
     }
 
@@ -59,7 +62,7 @@ public class AppDataManager implements  AppDataManagerHelper{
     }
 
     @Override
-    public Observable<Response<DefaultResponse>> postCreateAppointment(String id, FarmerAppointmentsBody body) {
+    public Observable<Response<ResponseForAppointmentCreation>> postCreateAppointment(String id, FarmerAppointmentsBody body) {
         return eventHelper.postCreateAppointment(id,body);
     }
 
@@ -91,6 +94,16 @@ public class AppDataManager implements  AppDataManagerHelper{
     @Override
     public Observable<Response<AllEquipmentsResponse>> getEquipmentsForFarmer() {
         return eventHelper.getEquipmentsForFarmer();
+    }
+
+    @Override
+    public Observable<Response<GetAllProductsResponse>> getAllProducts() {
+        return eventHelper.getAllProducts();
+    }
+
+    @Override
+    public Observable<Response<MyProfileBody>> patchMyProfile( MyProfileBody body) {
+        return eventHelper.patchMyProfile(body);
     }
 
 

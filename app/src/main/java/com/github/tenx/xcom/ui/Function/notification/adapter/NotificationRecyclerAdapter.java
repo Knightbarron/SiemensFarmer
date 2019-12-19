@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.business.funcnatilies.notification.adapter.NotificationDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,23 +18,23 @@ import javax.inject.Inject;
 
 public class NotificationRecyclerAdapter extends RecyclerView.Adapter<NotificationRecyclerAdapter.NotificationViewHolder> {
 
-    List<NotificationDataModel> mList;
+//    List<NotificationDataModel> mList;
     private View.OnClickListener onItemClickListener;
 
     @Inject
     public NotificationRecyclerAdapter() {
 
-        mList = new ArrayList<>();
+      //  mList = new ArrayList<>();
     }
 
     public void setOnItemClickListener(View.OnClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
-
-    public void updateListItems(List<NotificationDataModel> mList){
-        this.mList.addAll(mList);
-        notifyDataSetChanged();
-    }
+//
+//    public void updateListItems(List<NotificationDataModel> mList){
+//        this.mList.addAll(mList);
+//        notifyDataSetChanged();
+//    }
 
 
     @NonNull
@@ -47,8 +46,8 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<Notificati
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-        holder.body.setText(mList.get(position).getBody());
-        holder.name.setText(mList.get(position).getName());
+//        holder.body.setText(mList.get(position).getBody());
+//        holder.name.setText(mList.get(position).getName());
 
         //TODO load the image with glide
 
@@ -57,7 +56,8 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<Notificati
 
     @Override
     public int getItemCount() {
-        return mList.size();
+       // return mList.size();
+       return 0;
     }
 
     public class NotificationViewHolder extends RecyclerView.ViewHolder {

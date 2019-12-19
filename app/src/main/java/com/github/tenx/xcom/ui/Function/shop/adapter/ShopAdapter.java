@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.products.ProductsBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.AdvertisementViewHolder> {
 
-    private List<ShopDataModel> mList;
+    private List<ProductsBody> mList;
     private View.OnClickListener onItemClickListener;
 
 
@@ -42,10 +43,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.AdvertisementV
     @Override
     public void onBindViewHolder(@NonNull AdvertisementViewHolder holder, int position) {
 
-        holder.tvComapny.setText(mList.get(position).getNameCompany());
-        holder.tvProduct.setText(mList.get(position).getNameProduct());
-        holder.tvDescription.setText(mList.get(position).getAdBody());
-        holder.bodyImage.setImageResource(mList.get(position).getAdImage());
+        holder.tvPrice.setText(mList.get(position).getPrice());
+        holder.tvProduct.setText(mList.get(position).getName());
+        holder.tvDescription.setText(mList.get(position).getDescription());
+        //holder.bodyImage.setImageResource(mList.get(position));
 
     }
 
@@ -54,7 +55,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.AdvertisementV
         return mList.size();
     }
 
-    public void updateListItems(List<ShopDataModel> mList){
+    public void updateListItems(List<ProductsBody> mList){
         this.mList.addAll(mList);
         notifyDataSetChanged();
     }
@@ -62,8 +63,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.AdvertisementV
 
     public class AdvertisementViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvComapny;
         private TextView tvProduct;
+        private TextView tvPrice;
         private TextView tvDescription;
         private ImageView bodyImage;
 
@@ -73,10 +74,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.AdvertisementV
 
             itemView.setTag(this);
 
-            tvComapny = itemView.findViewById(R.id.tv_title);
-            tvProduct = itemView.findViewById(R.id.tv_headline);
+            tvProduct = itemView.findViewById(R.id.tv_title);
             tvDescription = itemView.findViewById(R.id.tv_desceription);
             bodyImage = itemView.findViewById(R.id.iv_advertisement_image);
+            tvPrice = itemView.findViewById(R.id.tv_price_main);
 
             itemView.setOnClickListener(onItemClickListener);
 

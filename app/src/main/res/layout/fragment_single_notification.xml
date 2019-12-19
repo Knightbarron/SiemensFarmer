@@ -37,7 +37,7 @@
                 android:layout_weight="1"/>
             <TextView
                 style="@style/list_item_produce"
-                android:text = "Mairing Dada"
+                tools:text = "Mairing Dada"
                 android:id="@+id/name"
                 android:layout_weight="2"/>
 
@@ -55,7 +55,7 @@
                 android:layout_weight="1"/>
             <TextView
                 style="@style/list_item_produce"
-                android:text = "Jorhat"
+                tools:text = "Jorhat"
                 android:id="@+id/location"
                 android:layout_weight="2"/>
 
@@ -72,7 +72,7 @@
                 android:layout_weight="1"/>
             <TextView
                 style="@style/list_item_produce"
-                android:text = "Ajoniku nai kora"
+                tools:text = "Ajoniku nai kora"
                 android:id="@+id/date"
                 android:layout_weight="2"/>
 
@@ -92,7 +92,7 @@
             <TextView
                 style="@style/list_item_produce"
                 android:id="@+id/time"
-                android:text = "7.45 PM"
+                tools:text = "7.45 PM"
                 android:layout_weight="2"/>
 
 
@@ -116,7 +116,7 @@
                 android:id="@+id/status"
                 android:textSize="18sp"
                 android:fontFamily="@font/roboto_medium"
-                android:text = "Accepted"
+                android:text = "Not Confirmed"
                 android:layout_weight="2"/>
 
         </LinearLayout>

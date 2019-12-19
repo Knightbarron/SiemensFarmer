@@ -2,6 +2,7 @@ package com.github.tenx.xcom.ui.auth.login;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.data.models.auth.LoginBody;
 import com.github.tenx.xcom.ui.auth.AuthViewModel;
 import com.github.tenx.xcom.ui.auth.registration.RegistrationFragment;
+import com.github.tenx.xcom.ui.main.MainActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -96,6 +98,12 @@ public class LoginFragment extends Fragment {
                     Log.d(TAG, "onChanged: Login Complete");
                     spinKit.setVisibility(View.INVISIBLE);
                     Snackbar.make(layout,"Login Complete",Snackbar.LENGTH_SHORT).show();
+
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+
                 }else{
                     Log.d(TAG, "onChanged: Loading ");
                 }

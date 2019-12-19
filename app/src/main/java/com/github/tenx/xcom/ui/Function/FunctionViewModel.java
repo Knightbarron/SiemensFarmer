@@ -12,9 +12,13 @@ import com.github.tenx.xcom.data.models.functions.appointments.AllExpertsRespons
 import com.github.tenx.xcom.data.models.functions.appointments.ExpertProfileBody;
 import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsBody;
 import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsResponse;
+import com.github.tenx.xcom.data.models.functions.appointments.ResponseForAppointmentCreation;
 import com.github.tenx.xcom.data.models.functions.equipments.AllEquipmentsResponse;
 import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
+import com.github.tenx.xcom.data.models.functions.profile.MyProfileBody;
+import com.github.tenx.xcom.data.models.products.GetAllProductsResponse;
 
+import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,7 +38,7 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
     MutableLiveData<AllExpertsResponse> allExpertsResponse;
     MutableLiveData<ExpertProfileBody> singleExpertProfile;
     MutableLiveData<AllEquipmentsResponse> farmerEquipmentsResponse;
-
+    MutableLiveData<GetAllProductsResponse> getAllProductsResponse;
 
 
 
@@ -45,6 +49,10 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
     MutableLiveData<Boolean> statusSingleExpertProfile;
     MutableLiveData<Boolean> statusCreateEquipment;
     MutableLiveData<Boolean> farmerEquipmentsStatus;
+    MutableLiveData<Boolean> statusAllProducts;
+    MutableLiveData<Boolean> statusPatchProfileData;
+
+
     //Mutable LiveData Status getters
 
     public MutableLiveData<Boolean> getStatusFarmerEquipments(){
@@ -72,6 +80,12 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
         return statusSingleExpertProfile;
     }
 
+
+    public LiveData<Boolean> getStatusAllProducts(){
+        if (statusAllProducts==null)
+            statusAllProducts = new MutableLiveData<>();
+        return statusAllProducts;
+    }
 
     //LiveData getters
     @Override
@@ -118,6 +132,21 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
         return farmerEquipmentsResponse;
     }
 
+    @Override
+    public LiveData<GetAllProductsResponse> getAllProducts() {
+        if (getAllProductsResponse==null)
+            getAllProductsResponse = new MutableLiveData<>();
+        return getAllProductsResponse;
+    }
+
+    @Override
+    public LiveData<Boolean> patchMyProfile() {
+
+        if (statusPatchProfileData==null)
+            statusPatchProfileData = new MutableLiveData<>();
+        return statusPatchProfileData;
+    }
+
 
     public FunctionViewModel(AppDataManager dataManager) {
         super(dataManager);
@@ -148,6 +177,8 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
 
                     @Override
                     public void onNext(Response<FarmerAppointmentsResponse> farmerAppointmentsResponseResponse) {
+
+                        Log.d(TAG, "onNext: Response code::: "+ farmerAppointmentsResponseResponse.code());
                         if (farmerAppointmentsResponseResponse.code()==200){
                             statusFarmerAppointmentsResponse.setValue(true);
                             farmerAppointmentsResonse.setValue(farmerAppointmentsResponseResponse.body());
@@ -174,15 +205,18 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
     public void createAppointment(String id, FarmerAppointmentsBody body){
         
         appDataManager.postCreateAppointment(id,body).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<DefaultResponse>>() {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<ResponseForAppointmentCreation>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 getCompositeDisposable().add(d);
             }
 
             @Override
-            public void onNext(Response<DefaultResponse> defaultResponseResponse) {
-                
+            public void onNext(Response<ResponseForAppointmentCreation> defaultResponseResponse) {
+
+
+                Log.d(TAG, "onNext: COde::: " + defaultResponseResponse.message());
+
                 if (defaultResponseResponse.code()==200){
 
                     statusPostAppointment.setValue(true);
@@ -359,6 +393,81 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
             }
         });
 
+
+    }
+
+
+
+    public void getAllProductsForFarmer(){
+
+        if (getAllProductsResponse==null)
+            getAllProductsResponse = new MutableLiveData<>();
+        if (statusAllProducts==null)
+            statusAllProducts = new MutableLiveData<>();
+
+
+
+        appDataManager.getAllProducts().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<GetAllProductsResponse>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                getCompositeDisposable().add(d);
+            }
+
+            @Override
+            public void onNext(Response<GetAllProductsResponse> getAllProductsResponseResponse) {
+
+                if (getAllProductsResponseResponse.code()==200){
+
+                    getAllProductsResponse.setValue(getAllProductsResponseResponse.body());
+                    statusAllProducts.setValue(true);
+                }else{
+
+                    statusAllProducts.setValue(false);
+                }
+
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError: ",e );
+                statusAllProducts.setValue(false);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void patchFarmerProfile( MyProfileBody body){
+        if (statusPatchProfileData==null)
+            statusPatchProfileData = new MutableLiveData<>();
+
+        appDataManager.patchMyProfile(body).subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<MyProfileBody>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                getCompositeDisposable().add(d);
+            }
+
+            @Override
+            public void onNext(Response<MyProfileBody> myProfileBodyResponse) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
 
     }
 

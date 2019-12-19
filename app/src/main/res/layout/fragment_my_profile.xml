@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:scrollbars="none"
+    android:layout_height="match_parent"
+    tools:context=".ui.Function.profile.MyProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/editTextStyle"
+            android:id="@+id/line1"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:layout_height="40dp"
+                android:hint="First Name"
+                android:id="@+id/first_name"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/editTextStyle"
+            android:id="@+id/line2"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:layout_height="40dp"
+                android:hint="Last Name"
+                android:id="@+id/last_name"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/editTextStyle"
+            android:id="@+id/line3"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:layout_height="40dp"
+                android:hint="Location"
+                android:id="@+id/location"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/editTextStyle"
+            android:id="@+id/line4"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:layout_height="100dp"
+                android:gravity="start"
+                android:hint="Bio"
+                android:id="@+id/bio"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_headline"
+            android:textColor="#746F6F"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:text="My Crops"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_bg_white"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:id="@+id/to_display"
+            android:gravity="left"
+            android:weightSum="10">
+
+            <ImageView
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:padding="8dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_add_black_24dp"
+                android:id="@+id/iv_topic"/>
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:text="Add a new Crop"
+                android:layout_gravity="left"
+                android:id="@+id/tv_topic"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+
+
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/add_crop_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_bg_white"
+        android:gravity="left"
+        android:weightSum="10">
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/editTextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:id="@+id/line5"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:visibility="visible"
+                android:fontFamily="@font/roboto"
+                android:layout_height="40dp"
+                android:hint="Crop Name"
+                android:id="@+id/crop"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            android:layout_height="30sp"
+            android:src="@drawable/ic_send_purple"/>
+
+
+    </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view"
+            tools:listitem="@layout/listitem_crops">
+
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button"
+            app:cornerRadius="2dp"
+            android:backgroundTint="#5084DE"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save Data"
+            android:gravity="center"
+            android:id="@+id/singin"
+            android:fontFamily="@font/roboto"
+            android:textColor="#FAFAFA"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"/>
+
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

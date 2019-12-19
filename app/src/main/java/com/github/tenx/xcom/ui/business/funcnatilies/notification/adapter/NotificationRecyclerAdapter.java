@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.models.functions.appointments.FarmerAppointmentsResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.inject.Inject;
 
 public class NotificationRecyclerAdapter extends RecyclerView.Adapter<NotificationRecyclerAdapter.NotificationViewHolder> {
 
-    List<NotificationDataModel> mList;
+    List<FarmerAppointmentsResponse.AppointmentBody> mList;
     private View.OnClickListener onItemClickListener;
 
     @Inject
@@ -30,7 +31,7 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<Notificati
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void updateListItems(List<NotificationDataModel> mList){
+    public void updateListItems(List<FarmerAppointmentsResponse.AppointmentBody> mList){
         this.mList.addAll(mList);
         notifyDataSetChanged();
     }
@@ -45,8 +46,10 @@ public class NotificationRecyclerAdapter extends RecyclerView.Adapter<Notificati
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-        holder.body.setText(mList.get(position).getBody());
-        holder.name.setText(mList.get(position).getName());
+//        holder.body.setText(mList.get(position).getBody());
+//        holder.name.setText(mList.get(position).getName());
+
+       // holder.body.setText(mList.get(position).getExpertId());
     }
 
     @Override

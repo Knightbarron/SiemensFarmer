@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:id="@+id/iv_advertisement_image"
-                android:src="@color/colorPrimary"/>
+                android:src="@drawable/agtech"/>
 
 
             <TextView
@@ -43,7 +43,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:textSize="18sp"
                 android:textColor="@color/text_colour"
-                android:text="Expert ka Name"/>
+                tools:text="Expert ka Name"/>
 
 
             <TextView
@@ -55,7 +55,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:textSize="16sp"
                 android:layout_marginTop="5dp"
-                android:text="Kaha pe kaam Kareta hain"/>
+                tools:text="Kaha pe kaam Kareta hain"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:id="@+id/tv_desceription"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="10dp"
-                android:text="This is the description bdody of the thing we are here to aanouce so many things cuz everything has changed. I dont know how and why This is happeneing but this is happening????"/>
+                tools:text="This is the description bdody of the thing we are here to aanouce so many things cuz everything has changed. I dont know how and why This is happeneing but this is happening????"/>
 
             <ProgressBar
                 android:layout_width="wrap_content"

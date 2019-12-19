@@ -9,6 +9,7 @@ import com.github.tenx.xcom.ui.Function.meetingTheExpert.ExpertMeetingFragment;
 import com.github.tenx.xcom.ui.Function.myEquipments.MyEquipments;
 import com.github.tenx.xcom.ui.Function.notification.FarmerNotificationFragment;
 import com.github.tenx.xcom.ui.Function.payments.FarmerPaymentsFragment;
+import com.github.tenx.xcom.ui.Function.profile.MyProfileFragment;
 import com.github.tenx.xcom.ui.Function.shop.ShopFragment;
 import com.github.tenx.xcom.ui.Function.articles.ArticlesFragment;
 import com.github.tenx.xcom.ui.Function.contactExperts.ContactExpertsFragment;
@@ -79,6 +80,9 @@ public abstract class FunctionFragmentBuilder {
 
     @ContributesAndroidInjector
     abstract MyEquipments bindMyEquipments();
+
+    @ContributesAndroidInjector
+    abstract MyProfileFragment bindMyProfile();
 
 
 

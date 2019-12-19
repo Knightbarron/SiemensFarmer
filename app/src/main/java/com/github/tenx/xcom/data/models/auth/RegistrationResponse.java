@@ -1,11 +1,13 @@
 package com.github.tenx.xcom.data.models.auth;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RegistrationResponse {
-
+    @SerializedName("message")
     private String message;
-
+    @SerializedName("token")
     private String token;
-
+    @SerializedName("farmer")
     private Data mData;
 
     public Data getmData() {
@@ -42,7 +44,9 @@ public class RegistrationResponse {
 
 
     public class Data{
+
         private String email;
+        @SerializedName("_id")
         private String id;
 
         public String getEmail() {

@@ -3,6 +3,7 @@ package com.github.tenx.xcom.ui.Function.singleExpert;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,9 @@ import dagger.android.support.AndroidSupportInjection;
  * A simple {@link Fragment} subclass.
  */
 public class SingleExpertFragment extends Fragment {
+
+
+    private static final String TAG = "SingleExpertFragment";
 
     @BindView(R.id.iv_advertisement_image)
     ImageView ivAdvertisementImage;
@@ -77,6 +81,8 @@ public class SingleExpertFragment extends Fragment {
 
         singleExpertId = getArguments().getString(Constants.SEND_ID_TO_SINGLE_EXPERT);
 
+        Log.d(TAG, "onCreateView: ID of the single Expert clicked::: " + singleExpertId);
+
         //TODO retrieve expert profile
 
         viewModel.retrieveSingleExpertProfile(singleExpertId);
@@ -90,13 +96,20 @@ public class SingleExpertFragment extends Fragment {
         viewModel.getSingleExpert().observe(this, new Observer<ExpertProfileBody>() {
             @Override
             public void onChanged(ExpertProfileBody expertProfileBody) {
-                if (expertProfileBody.getName()!=null)
-                    tvTitle.setText(expertProfileBody.getName());
+
+                if (expertProfileBody.getId()!=null)
+                    tvTitle.setText(expertProfileBody.getId());
+
+                String fName = expertProfileBody.getFirstName();
+                String lName = expertProfileBody.getLastName();
+                String name = fName+" " + lName;
+
+                    tvTitle.setText(name);
                 if (expertProfileBody.getExpertise()!=null)
                     tvHeadline.setText(expertProfileBody.getExpertise());
                 if (expertProfileBody.getDescription()!=null)
                     tvDesceription.setText(expertProfileBody.getDescription());
-                //TODO set up the Image thingy
+                //TODO set up the Image thing
             }
         });
     }

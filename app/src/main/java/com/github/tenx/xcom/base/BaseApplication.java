@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import io.reactivex.plugins.RxJavaPlugins;
 import timber.log.Timber;
 
 public class BaseApplication extends Application implements HasActivityInjector {
@@ -31,6 +32,9 @@ public class BaseApplication extends Application implements HasActivityInjector 
     @Override
     public void onCreate() {
         super.onCreate();
+        RxJavaPlugins.setErrorHandler(throwable -> {});
+
+
         DaggerAppComponent.builder().application(this).build().inject(this);
 
 

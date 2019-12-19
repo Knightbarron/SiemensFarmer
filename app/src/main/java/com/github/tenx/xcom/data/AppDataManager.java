@@ -3,7 +3,6 @@ package com.github.tenx.xcom.data;
 import android.content.Context;
 
 import com.github.tenx.xcom.data.models.DefaultResponse;
-import com.github.tenx.xcom.data.models.UserData;
 import com.github.tenx.xcom.data.models.auth.LoginBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationResponse;
@@ -17,11 +16,14 @@ import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
 import com.github.tenx.xcom.data.models.functions.equipments.OrderEquipmentBody;
 import com.github.tenx.xcom.data.models.functions.profile.MyProfileBody;
 import com.github.tenx.xcom.data.models.products.GetAllProductsResponse;
+import com.github.tenx.xcom.data.models.services.distribution.CropPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionBody;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.PredictionBody;
 import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.data.rest.events.AppEventHelper;
 import com.github.tenx.xcom.di.scopes.ApplicationContext;
-
-import java.util.List;
+import com.google.gson.JsonElement;
 
 import javax.inject.Inject;
 
@@ -104,6 +106,21 @@ public class AppDataManager implements  AppDataManagerHelper{
     @Override
     public Observable<Response<MyProfileBody>> patchMyProfile( MyProfileBody body) {
         return eventHelper.patchMyProfile(body);
+    }
+
+    @Override
+    public Observable<Response<CropPriceResponse>> getMyCropPrice() {
+        return eventHelper.getMyCropPrice();
+    }
+
+    @Override
+    public Observable<Response<DefaultResponse>> createDistributionRequest(DistributionBody body) {
+        return eventHelper.createDistributionRequest(body);
+    }
+
+    @Override
+    public Observable<Response<DistributionPriceResponse>> getPredictedPrice(PredictionBody body) {
+        return eventHelper.getPredictedPrice(body);
     }
 
 

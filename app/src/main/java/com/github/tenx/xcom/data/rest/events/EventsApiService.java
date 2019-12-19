@@ -1,7 +1,6 @@
 package com.github.tenx.xcom.data.rest.events;
 
 import com.github.tenx.xcom.data.models.DefaultResponse;
-import com.github.tenx.xcom.data.models.UserData;
 import com.github.tenx.xcom.data.models.auth.LoginBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationResponse;
@@ -15,8 +14,11 @@ import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
 import com.github.tenx.xcom.data.models.functions.equipments.OrderEquipmentBody;
 import com.github.tenx.xcom.data.models.functions.profile.MyProfileBody;
 import com.github.tenx.xcom.data.models.products.GetAllProductsResponse;
-
-import java.util.List;
+import com.github.tenx.xcom.data.models.services.distribution.CropPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionBody;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.PredictionBody;
+import com.google.gson.JsonElement;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
@@ -68,8 +70,16 @@ public interface EventsApiService {
     Observable<Response<MyProfileBody>> patchMyProfile(@Body MyProfileBody body);
 
 
+    //TODO not working
+    @GET("api/crop/prices")
+    Observable<Response<CropPriceResponse>> getMyCropPrice();
+
+    @POST("api/dist-request/create")
+    Observable<Response<DefaultResponse>> createDistributionRequest(@Body DistributionBody body);
 
 
+    @GET("api/crop/price/predict")
+    Observable<Response<DistributionPriceResponse>> getPredictedPrice(@Body PredictionBody body);
 
 
 }

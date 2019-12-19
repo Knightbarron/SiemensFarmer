@@ -11,6 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.ui.Function.appointments.FarmerAppointmentsFragment;
@@ -121,6 +126,17 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
 
        // Log.d(TAG, "onCreate: " + appPreferencesHelper.getAccessToken());
 
+//
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        StringRequest sr = new StringRequest(Request.Method.POST,
+//                "http://10.0.2.2:3000/", new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.d(TAG, "onResponse: " + response);
+//            }
+//        });
+
+
 
 
     }
@@ -141,7 +157,7 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
                     break;
                 case 2:
                     initFrag(questionFragment);
-                    setUpToolBar("Post a Question");
+                    setUpToolBar("Post PlaceHolder Question");
                     break;
                 case 3:
                     initFrag(contactExpertsFragment);

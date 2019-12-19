@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:background="#ffff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        >
+
+
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:orientation="vertical">
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/editTextStyle"
+                android:id="@+id/line1"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto"
+                    android:layout_height="40dp"
+                    android:hint="Crop Name"
+                    android:id="@+id/crop_name"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/editTextStyle"
+                android:id="@+id/line2"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto"
+                    android:layout_height="40dp"
+                    android:hint="Description"
+                    android:id="@+id/tv_description"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/editTextStyle"
+                android:id="@+id/line3"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto"
+                    android:layout_height="40dp"
+                    android:hint="Quantity"
+                    android:id="@+id/crop_quantity"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/editTextStyle"
+                android:id="@+id/line4"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto"
+                    android:layout_height="40dp"
+                    android:hint="Location"
+                    android:id="@+id/tv_location"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <ProgressBar
+                android:id="@+id/spin_kit"
+                android:layout_marginTop="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button"
+                app:cornerRadius="2dp"
+                android:backgroundTint="#5084DE"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Request"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:id="@+id/singin"
+                android:textColor="#FAFAFA"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

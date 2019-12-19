@@ -48,7 +48,7 @@ public class EquipmentsFragment extends Fragment {
 
     private List<EquipmentBody> itemList;
 
-    //TODO set up the book button.. send the id with a bundle
+    //TODO set up the book button.. send the id with PlaceHolder bundle
 
 
 

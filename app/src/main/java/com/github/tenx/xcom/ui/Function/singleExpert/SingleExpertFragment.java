@@ -145,10 +145,10 @@ public class SingleExpertFragment extends Fragment {
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
 
 
-        //TODO get the id of the expert and send it in a bundle
+        //TODO get the id of the expert and send it in PlaceHolder bundle
 
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.APPOINTMENT_EXPERT_ID, "Some id of the expert");
+        bundle.putString(Constants.APPOINTMENT_EXPERT_ID, singleExpertId);
         expertMeetingFragment.setArguments(bundle);
 
         transaction.replace(R.id.frame_layout, expertMeetingFragment);

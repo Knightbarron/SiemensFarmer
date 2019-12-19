@@ -9,7 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.ui.Services.equipments.EquipmentsFragment;
-import com.github.tenx.xcom.ui.Services.storage.StorageFragment;
+import com.github.tenx.xcom.ui.Services.distribution.DistributionFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import javax.inject.Inject;
@@ -40,6 +40,7 @@ public class ServicesActivity extends AppCompatActivity implements HasSupportFra
 
     ServicesViewPagerAdapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,20 +49,27 @@ public class ServicesActivity extends AppCompatActivity implements HasSupportFra
 
         AndroidInjection.inject(this);
 
-        Log.d(TAG, "onCreate: "+viewModel.getString());
+     //   Log.d(TAG, "onCreate: "+viewModel.getString());
 
         setupViewPager();
 
+        viewModel.getMyCropnPrice();
+
+        subscribeObservers();
 
 
+    }
+
+    private void subscribeObservers() {
 
     }
 
     private void setupViewPager() {
 
         adapter = new ServicesViewPagerAdapter(getSupportFragmentManager());
+
+        adapter.addFragment(new DistributionFragment(), "Distributions");
         adapter.addFragment(new EquipmentsFragment(), "Lending Equipments");
-        adapter.addFragment(new StorageFragment(), "Storage");
 
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);

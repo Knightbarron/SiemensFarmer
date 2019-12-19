@@ -55,7 +55,7 @@ public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper 
 
     //TEST
     public String getString(){
-        return "i am a manuh . Do you understand Goru 36??";
+        return "i am PlaceHolder manuh . Do you understand Goru 36??";
     }
 
 

@@ -77,8 +77,9 @@ public  class AppRetrofitModule {
 
         //TODO add this
         String authToken = "Bearer "+ appPreferencesHelper.getAccessToken();
-        Log.d(TAG, "provideRetrofit: " + authToken);
+     //   Log.d(TAG, "provideRetrofit: " + authToken);
 
+      //  String authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGZiYWRjNmM3YjIzZDQ1MDA3MGM4ZGMiLCJlbWFpbCI6InNhaWtpYXNvdXJhdjUwQGdtYWlsLmNvbSIsInR5cGUiOiJmYXJtZXIiLCJpYXQiOjE1NzY3NzUxMTF9.89XW682TCm241LyNwfOsB8soyxGQWg9yJTbayamzS3A" ;
 
         httpClient.addInterceptor(new Interceptor() {
             @Override

@@ -201,7 +201,7 @@ public class ContactExpertsFragment extends Fragment {
 
         String locationaName = locationText.getText().toString();
         if (locationaName.isEmpty()){
-            Snackbar.make(layout,"Please enter a location.",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(layout,"Please enter PlaceHolder location.",Snackbar.LENGTH_SHORT).show();
             return;
         }
 

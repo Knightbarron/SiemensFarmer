@@ -1,4 +1,4 @@
-package com.github.tenx.xcom.ui.Function.notification;
+package com.github.tenx.xcom.ui.Services.distribution;
 
 
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,8 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
-import com.github.tenx.xcom.ui.Function.notification.adapter.NotificationRecyclerAdapter;
-import com.github.tenx.xcom.ui.Function.singleNotification.FarmerSingleNotificationFragment;
+import com.github.tenx.xcom.ui.Services.distribution.adapter.DistributionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,23 +28,22 @@ import dagger.android.support.AndroidSupportInjection;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FarmerNotificationFragment extends Fragment {
+public class DistributionFragment extends Fragment {
 
-    private static final String TAG = "FarmerNotificationFragm";
+    private static final String TAG = "DistributionFragment";
+
 
     @Inject
-    NotificationRecyclerAdapter adapter;
-//
-//    ArrayList<NotificationDataModel> itemList;
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
+    DistributionAdapter adapter;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+   // private List<StorageDataModel> itemList;
+
     @Inject
-    FarmerSingleNotificationFragment farmerSingleNotificationFragment;
-
-
+    public DistributionFragment() {
+        // Required empty public constructor
+    }
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -57,7 +54,7 @@ public class FarmerNotificationFragment extends Fragment {
 
             //  goToNextActivity(position);
 
-            initializeFragments(farmerSingleNotificationFragment);
+            //   initializeFragments(farmerSingleNotificationFragment);
         }
     };
 
@@ -77,20 +74,22 @@ public class FarmerNotificationFragment extends Fragment {
     }
 
 
-    @Inject
-    public FarmerNotificationFragment() {
-        // Required empty public constructor
-    }
+
+
+
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_farmer_notification, container, false);
+        View view = inflater.inflate(R.layout.fragment_distribution, container, false);
 
         AndroidSupportInjection.inject(this);
         ButterKnife.bind(this,view);
+
         setUpRecycler(recyclerView,adapter);
 
         return view;
@@ -104,13 +103,13 @@ public class FarmerNotificationFragment extends Fragment {
     }
 
 
-    private void setUpRecycler(RecyclerView recyclerView, NotificationRecyclerAdapter adapter) {
+    private void setUpRecycler(RecyclerView recyclerView, DistributionAdapter adapter) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(onClickListener);
-      //  adapter.updateListItems(loadItems());
-    }
 
+      //  adapter.updateListData(loadItems());
+    }
 
 
 

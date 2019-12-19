@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
-import com.github.tenx.xcom.ui.Services.storage.adapter.StorageDataModel;
 
 import java.util.ArrayList;
 import java.util.List;

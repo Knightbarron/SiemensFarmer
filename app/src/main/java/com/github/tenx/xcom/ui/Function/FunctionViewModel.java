@@ -155,7 +155,7 @@ public class FunctionViewModel extends BaseViewModel implements FunctionViewMode
 
 
     public String getString(){
-        return "i am a manuh . Do you understand me??";
+        return "i am PlaceHolder manuh . Do you understand me??";
     }
 
     //TODO check this

@@ -18,12 +18,9 @@
         android:roundIcon="@mipmap/agtech"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.business.funcnatilies.BusinessFunctionalityActivity" />
-        <activity android:name=".ui.business.main.BusinessMainActivity">
 
 
-
-        </activity>
+        
         <activity android:name=".ui.auth.AuthenticationActivity">
 
             <intent-filter>

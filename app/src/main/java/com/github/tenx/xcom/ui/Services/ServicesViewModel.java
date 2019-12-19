@@ -10,8 +10,20 @@ import com.github.tenx.xcom.data.AppDataManager;
 import com.github.tenx.xcom.data.models.DefaultResponse;
 import com.github.tenx.xcom.data.models.functions.equipments.AllEquipmentsResponse;
 import com.github.tenx.xcom.data.models.functions.equipments.OrderEquipmentBody;
+import com.github.tenx.xcom.data.models.services.distribution.CropPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionBody;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.PredictionBody;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -27,9 +39,40 @@ public class ServicesViewModel extends BaseViewModel implements ServicesViewMode
     //Mutable LiveData Responses
     MutableLiveData<AllEquipmentsResponse> allEquipmentsResponse;
 
+    MutableLiveData<DistributionPriceResponse> distributionPriceResponse;
+
+    MutableLiveData<DistributionPriceResponse> predictionPriceResponse;
+
+
+
     //Mutable LiveData Status
     MutableLiveData<Boolean> allEquipmentsStatus;
     MutableLiveData<Boolean> statusOrderEquipment;
+
+    MutableLiveData<Boolean> statusCreateDisRequest;
+
+    public LiveData<DistributionPriceResponse> getDistributionPriceResponse(){
+        if (distributionPriceResponse==null)
+            distributionPriceResponse = new MutableLiveData<>();
+        return distributionPriceResponse;
+    }
+
+    public LiveData<DistributionPriceResponse> getPredictionPriceStatus(){
+
+        if (predictionPriceResponse==null)
+            predictionPriceResponse = new MutableLiveData<>();
+        return predictionPriceResponse;
+
+    }
+
+
+
+    public LiveData<Boolean> getStatusCreateDIstRequest(){
+        if (statusCreateDisRequest==null)
+            statusCreateDisRequest = new MutableLiveData<>();
+
+        return statusCreateDisRequest;
+    }
 
     //Mutable LiveData Status getters
 
@@ -63,7 +106,7 @@ public class ServicesViewModel extends BaseViewModel implements ServicesViewMode
 
 
     public String getString(){
-        return "i am a manuh . Do you understand Goru??";
+        return "i am PlaceHolder manuh . Do you understand Goru??";
     }
 
     public void getAllEquipmentsList(){
@@ -144,7 +187,128 @@ public class ServicesViewModel extends BaseViewModel implements ServicesViewMode
 
     }
 
+    public void getMyCropnPrice() {
+        appDataManager.getMyCropPrice().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<CropPriceResponse>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                getCompositeDisposable().add(d);
+            }
+
+            @Override
+            public void onNext(Response<CropPriceResponse> cropPriceResponseResponse) {
+                Log.d(TAG, "onNext: Price Response::: " + cropPriceResponseResponse.code());
+                if (cropPriceResponseResponse.code()==200){
+
+                    Log.d(TAG, "onNext: Reached here");
+
+                    Log.d(TAG, "onNext: " +cropPriceResponseResponse.body().getHashMap().size());
+
+                    Map<String,String> hash = cropPriceResponseResponse.body().getHashMap();
 
 
+                    for (String keys:hash.keySet()){
+                        Log.d(TAG, "onNext: keys::: " + keys);
+                    }
+
+                }
+                else{
+
+
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError: ",e );
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void postCreateDistRequest(DistributionBody body){
+        if (statusCreateDisRequest==null)
+            statusCreateDisRequest = new MutableLiveData<>();
+
+        appDataManager.createDistributionRequest(body).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<DefaultResponse>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        getCompositeDisposable().add(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<DefaultResponse> defaultResponseResponse) {
+
+                        if (defaultResponseResponse.code()==200){
+
+                            statusCreateDisRequest.setValue(true);
+
+                        }else{
+                            statusCreateDisRequest.setValue(false);
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: `", e);
+                        statusCreateDisRequest.setValue(true);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    public void getPredictedPrice(PredictionBody body){
+
+        if (predictionPriceResponse==null)
+            predictionPriceResponse = new MutableLiveData<>();
+
+        appDataManager.getPredictedPrice(body).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<DistributionPriceResponse>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                getCompositeDisposable().add(d);
+            }
+
+            @Override
+            public void onNext(Response<DistributionPriceResponse> distributionPriceResponseResponse) {
+
+                Log.d(TAG, "onNext: COde:: " + distributionPriceResponseResponse.code());
+
+                if (distributionPriceResponseResponse.code()==200){
+                    predictionPriceResponse.setValue(distributionPriceResponseResponse.body());
+                }else{
+
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError: ",e );
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+
+
+    }
 
 }

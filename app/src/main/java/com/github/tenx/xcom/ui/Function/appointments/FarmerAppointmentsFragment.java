@@ -69,7 +69,7 @@ public class FarmerAppointmentsFragment extends Fragment {
         }
     };
 
-    //TODO send the id in a bundle
+    //TODO send the id in PlaceHolder bundle
 
 
     public void initializeFragments(Fragment frag) {
@@ -151,7 +151,7 @@ public class FarmerAppointmentsFragment extends Fragment {
     private void setUpRecycler(RecyclerView recyclerView, FarmerAppointmentsAdapter adapter) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(onClickListener);
+     //   adapter.setOnItemClickListener(onClickListener);
 
     }
 

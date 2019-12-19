@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         itemList = new ArrayList<>();
         itemList.add(new HomePageItemsModel(R.drawable.ic_services_purple, "Services"));
         itemList.add(new HomePageItemsModel(R.drawable.ic_shop_purple, "Shop"));
-        itemList.add(new HomePageItemsModel(R.drawable.ic_question_mark_purple, "Post a question"));
+        itemList.add(new HomePageItemsModel(R.drawable.ic_question_mark_purple, "Post PlaceHolder question"));
         itemList.add(new HomePageItemsModel(R.drawable.ic_contact_experts_purple, "Contact the Experts"));
         itemList.add(new HomePageItemsModel(R.drawable.ic_articles_purple, "Articles"));
 

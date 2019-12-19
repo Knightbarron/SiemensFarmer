@@ -50,7 +50,7 @@ public class CartFragment extends Fragment {
     BuyItemFragment buyItemFragment;
 
     //TODO resolve dependency cycle
-    //TODO I have removed to navigation to a Single Product from the cart. May need to implement.
+    //TODO I have removed to navigation to PlaceHolder Single Product from the cart. May need to implement.
 
     ArrayList<CartDataModel> itemList;
     @BindView(R.id.btn_cost)

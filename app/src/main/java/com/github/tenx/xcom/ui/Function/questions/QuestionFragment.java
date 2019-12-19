@@ -128,7 +128,7 @@ public class QuestionFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select a Image"),REQUEST_CODE_IMAGE);
+                startActivityForResult(Intent.createChooser(intent,"Select PlaceHolder Image"),REQUEST_CODE_IMAGE);
 
 
             }

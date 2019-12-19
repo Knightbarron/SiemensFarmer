@@ -1,7 +1,6 @@
 package com.github.tenx.xcom.data.rest.events;
 
 import com.github.tenx.xcom.data.models.DefaultResponse;
-import com.github.tenx.xcom.data.models.UserData;
 import com.github.tenx.xcom.data.models.auth.LoginBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationBody;
 import com.github.tenx.xcom.data.models.auth.RegistrationResponse;
@@ -15,8 +14,11 @@ import com.github.tenx.xcom.data.models.functions.equipments.EquipmentBody;
 import com.github.tenx.xcom.data.models.functions.equipments.OrderEquipmentBody;
 import com.github.tenx.xcom.data.models.functions.profile.MyProfileBody;
 import com.github.tenx.xcom.data.models.products.GetAllProductsResponse;
-
-import java.util.List;
+import com.github.tenx.xcom.data.models.services.distribution.CropPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionBody;
+import com.github.tenx.xcom.data.models.services.distribution.DistributionPriceResponse;
+import com.github.tenx.xcom.data.models.services.distribution.PredictionBody;
+import com.google.gson.JsonElement;
 
 import javax.inject.Inject;
 
@@ -94,6 +96,21 @@ public class AppEventHelper implements  EventsApiService {
     @Override
     public Observable<Response<MyProfileBody>> patchMyProfile( MyProfileBody body) {
         return api.patchMyProfile( body);
+    }
+
+    @Override
+    public Observable<Response<CropPriceResponse>> getMyCropPrice() {
+        return api.getMyCropPrice();
+    }
+
+    @Override
+    public Observable<Response<DefaultResponse>> createDistributionRequest(DistributionBody body) {
+        return api.createDistributionRequest( body);
+    }
+
+    @Override
+    public Observable<Response<DistributionPriceResponse>> getPredictedPrice(PredictionBody body) {
+        return api.getPredictedPrice(body);
     }
 
 

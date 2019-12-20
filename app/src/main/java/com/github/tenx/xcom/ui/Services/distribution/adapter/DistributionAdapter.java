@@ -1,5 +1,6 @@
 package com.github.tenx.xcom.ui.Services.distribution.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.ui.Services.distribution.CropPriceModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,23 +22,21 @@ import javax.inject.Inject;
 public class DistributionAdapter extends RecyclerView.Adapter<DistributionAdapter.StorageViewHolder> {
 
 
-    private List<String> mList;
+    private List<CropPriceModel> mList;
 
+    private static final String TAG = "DistributionAdapter";
 
     private View.OnClickListener onItemClickListener;
-
 
     public void setOnItemClickListener(View.OnClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
 
-
-
-
     @Inject
     public DistributionAdapter() {
 
         mList = new ArrayList<>();
+
     }
 
     @NonNull
@@ -49,10 +50,13 @@ public class DistributionAdapter extends RecyclerView.Adapter<DistributionAdapte
 
     @Override
     public void onBindViewHolder(@NonNull StorageViewHolder holder, int position) {
-//        holder.storageImage.setImageResource(mList.get(position).getImage());
-//        holder.storageLocation.setText(mList.get(position).getLocation());
-//        holder.storageName.setText(mList.get(position).getName());
-//        holder.storagePrice.setText(mList.get(position).getPrice());
+
+        Log.d(TAG, "onBindViewHolder: product: " + mList.get(position).getCrop());
+        Log.d(TAG, "onBindViewHolder: price::: " + mList.get(position).getPrice());
+        holder.storageProduct.setText(mList.get(position).getCrop());
+        holder.storagePrice.setText(mList.get(position).getPrice());
+
+
     }
 
     @Override
@@ -61,7 +65,7 @@ public class DistributionAdapter extends RecyclerView.Adapter<DistributionAdapte
         return mList.size();
     }
 
-    public void updateListData(List<String>  data){
+    public void updateListData(List<CropPriceModel>  data){
         mList.clear();
         this.mList.addAll(data);
         notifyDataSetChanged();

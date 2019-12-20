@@ -61,7 +61,8 @@ public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper 
 
     public void setAuthToken(String token){
 
-        Log.d(TAG, "getAuthToken: " + token);
+        Log.d(TAG, "getAuthToken: SharedPreferences:::" + token);
+        Log.d(TAG, "setAuthToken: REached this place");
         appDataManager.setAccessToken(token);
     }
 
@@ -104,9 +105,14 @@ public class AuthViewModel extends BaseViewModel implements AuthViewModelHelper 
 
                 if (registrationResponseResponse.code()==200){
 
-                    setAuthToken(registrationResponseResponse.body().getToken());
-                    setUserEmail(registrationResponseResponse.body().getmData().getEmail());
-                    setUserId(registrationResponseResponse.body().getmData().getId());
+                    Log.d(TAG, "onNext: token in registration::: " + registrationResponseResponse.body().getToken());
+
+//                    setAuthToken(registrationResponseResponse.body().getToken());
+//                    setUserEmail(registrationResponseResponse.body().getmData().getEmail());
+//                    setUserId(registrationResponseResponse.body().getmData().getId());
+
+                    loginFarmer(new LoginBody(body.getEmail(),body.getPassword()));
+
 
                     registrationResponse.setValue(true);
 

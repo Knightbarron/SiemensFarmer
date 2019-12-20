@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.github.tenx.xcom.R;
+import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.ui.Function.FunctionActivity;
 import com.github.tenx.xcom.ui.Services.ServicesActivity;
 import com.github.tenx.xcom.ui.main.recyclerView.HomePageAdapter;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.recycler_view2)
     RecyclerView recyclerView2;
+
+    AppPreferencesHelper appPreferencesHelper;
 
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         CustomIntent.customType(this, "left-to-right");
 
-
+        Log.d(TAG, "goToNextActivity: " + appPreferencesHelper.getAccessToken());
     }
 
 

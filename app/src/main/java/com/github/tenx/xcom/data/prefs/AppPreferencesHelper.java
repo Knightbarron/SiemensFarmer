@@ -6,7 +6,7 @@ import com.github.tenx.xcom.di.scopes.ApplicationContext;
 
 import javax.inject.Inject;
 
-public class AppPreferencesHelper implements PreferencesHelper {
+public class AppPreferencesHelper implements PreferencesHelper{
 
 
     private SharedPreferences mPrefs;
@@ -14,10 +14,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String EMAIL_ACCESS_KEY = "Myemail";
     private static final String USER_TYPE_KEY = "UserType";
     public static final String USER_ID = "userId";
-
-
-
-
 
     @Inject
     public AppPreferencesHelper(@ApplicationContext Context context, @PreferencesInfo String filename){
@@ -30,13 +26,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return mPrefs.getString(PREF_KEY_ACCESS_TOKEN, "");
     }
 
+    //TODO test this
     @Override
     public void setAccessToken(String token) {
-        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, token).apply();
+        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, token).commit();
     }
 
     @Override
     public void setEmail(String email) {
+
         mPrefs.edit().putString(EMAIL_ACCESS_KEY, email).apply();
     }
 
@@ -56,4 +54,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public String getUserId() {
         return mPrefs.getString(USER_ID,"");
     }
+
+
 }

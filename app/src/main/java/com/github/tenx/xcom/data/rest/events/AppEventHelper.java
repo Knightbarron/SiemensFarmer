@@ -20,6 +20,8 @@ import com.github.tenx.xcom.data.models.services.distribution.DistributionPriceR
 import com.github.tenx.xcom.data.models.services.distribution.PredictionBody;
 import com.google.gson.JsonElement;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
@@ -99,7 +101,7 @@ public class AppEventHelper implements  EventsApiService {
     }
 
     @Override
-    public Observable<Response<CropPriceResponse>> getMyCropPrice() {
+    public Observable<Response<Map<String,String>>> getMyCropPrice() {
         return api.getMyCropPrice();
     }
 

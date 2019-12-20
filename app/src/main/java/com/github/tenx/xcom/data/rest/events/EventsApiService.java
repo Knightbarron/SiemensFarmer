@@ -20,6 +20,8 @@ import com.github.tenx.xcom.data.models.services.distribution.DistributionPriceR
 import com.github.tenx.xcom.data.models.services.distribution.PredictionBody;
 import com.google.gson.JsonElement;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -72,7 +74,7 @@ public interface EventsApiService {
 
     //TODO not working
     @GET("api/crop/prices")
-    Observable<Response<CropPriceResponse>> getMyCropPrice();
+    Observable<Response<Map<String,String>>> getMyCropPrice();
 
     @POST("api/dist-request/create")
     Observable<Response<DefaultResponse>> createDistributionRequest(@Body DistributionBody body);

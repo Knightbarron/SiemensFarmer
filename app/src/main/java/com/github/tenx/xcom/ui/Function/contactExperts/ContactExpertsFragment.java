@@ -81,8 +81,6 @@ public class ContactExpertsFragment extends Fragment {
     ProgressBar progressbar;
 
 
-    AppPreferencesHelper appPreferencesHelper;
-
     @Inject
     FunctionViewModel viewModel;
 
@@ -147,7 +145,6 @@ public class ContactExpertsFragment extends Fragment {
         progressbar.setVisibility(View.INVISIBLE);
 
 
-      //  Log.d(TAG, "onCreateView: " + appPreferencesHelper.getAccessToken());
         subscribeObserverForListStatus();
         subscribeObserverForTheExpertList();
 

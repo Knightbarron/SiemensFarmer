@@ -83,8 +83,6 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
     @Inject
     ExpertMeetingFragment expertMeetingFragment;
 
-    @Inject
-    AppPreferencesHelper preferencesHelper;
 
     @Inject
     MyProfileFragment myProfileFragment;
@@ -118,7 +116,7 @@ public class FunctionActivity extends AppCompatActivity implements HasSupportFra
 
         fragmentManager = getSupportFragmentManager();
 
-        Log.d(TAG, "onCreate: Preferences::: Token id::: " +preferencesHelper.getAccessToken());
+      //  Log.d(TAG, "onCreate: Preferences::: Token id::: " +preferencesHelper.getAccessToken());
         inititalizeFragment(flagId,flagState);
         Log.d(TAG, "onCreate: Flag id ::: " + flagId);
 

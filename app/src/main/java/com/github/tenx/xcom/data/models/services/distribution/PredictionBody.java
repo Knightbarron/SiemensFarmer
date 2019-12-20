@@ -6,7 +6,7 @@ public class PredictionBody {
 
     private String quantity;
 
-    public PredictionBody(String name, String quantity) {
+    public PredictionBody(String name, int quantity) {
         this.name = name;
         this.quantity = quantity;
     }

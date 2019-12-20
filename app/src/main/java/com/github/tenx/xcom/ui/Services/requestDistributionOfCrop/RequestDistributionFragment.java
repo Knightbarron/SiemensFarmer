@@ -11,11 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.data.models.services.distribution.DistributionBody;
+import com.github.tenx.xcom.data.models.services.distribution.PredictionBody;
 import com.github.tenx.xcom.ui.Services.ServicesViewModel;
+import com.github.tenx.xcom.ui.Services.predictedPrice.PricePredictionFragment;
+import com.github.tenx.xcom.utils.Constants;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -58,10 +62,17 @@ public class RequestDistributionFragment extends Fragment {
     @BindView(R.id.layout)
     LinearLayout layout;
 
+    @Inject
+    PricePredictionFragment pricePredictionFragment;
+
     private static final String TAG = "RequestDistributionFrag";
 
     @Inject
     ServicesViewModel viewModel;
+    String strDescription="";
+    String strLocation="";
+    int strQuantity =0;
+    String strName="";
 
 
     @Inject
@@ -82,26 +93,21 @@ public class RequestDistributionFragment extends Fragment {
         ButterKnife.bind(this,view);
 
 
-        subscribeObserver();
-
         return view;
     }
 
-    private void subscribeObserver() {
-        viewModel.getStatusCreateDIstRequest().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
-                    spinKit.setVisibility(View.GONE);
+    public void initializeFragments(Fragment frag) {
+        String backStateName = frag.getClass().toString();
+        //Log.d(TAG, "onBtnOtpLoginClicked: " + backStateName);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
 
-                    Snackbar.make(layout,"Successfully requested",Snackbar.LENGTH_SHORT).show();
-                }else{
-                    Snackbar.make(layout,"Error occured",Snackbar.LENGTH_SHORT).show();
-                    spinKit.setVisibility(View.GONE);
-                }
-            }
-        });
+        transaction.replace(R.id.frame_layout, frag);
+        transaction.addToBackStack(backStateName);
+
+        transaction.commit();
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -113,10 +119,10 @@ public class RequestDistributionFragment extends Fragment {
     @OnClick(R.id.singin)
     public void onViewClicked() {
 
-        String strName = cropName.getText().toString();
-        String strDescription = tvDescription.getText().toString();
-        int strQuantity = Integer.parseInt(cropQuantity.getText().toString());
-        String strLocation = tvLocation.getText().toString();
+         strName  = cropName.getText().toString();
+         strDescription  = tvDescription.getText().toString();
+        strQuantity = Integer.parseInt(cropQuantity.getText().toString());
+         strLocation = tvLocation.getText().toString();
 
         if (TextUtils.isEmpty(strName) ) {
             Snackbar.make(layout, "Enter Crop name", Snackbar.LENGTH_LONG).show();
@@ -134,8 +140,21 @@ public class RequestDistributionFragment extends Fragment {
             return;
         }
 
-        //TODO the network call.
-        viewModel.postCreateDistRequest(new DistributionBody(strName,strDescription,strQuantity,strLocation));
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.LOCATION,strLocation);
+        bundle.putString(Constants.DESCRIPTION,strDescription);
+        bundle.putString(Constants.NAME,strName);
+        bundle.putInt(Constants.QUANTITY,strQuantity);
 
+        pricePredictionFragment.setArguments(bundle);
+
+        initializeFragments(pricePredictionFragment);
+
+
+
+        //TODO the network call.
+      //  viewModel.postCreateDistRequest(new DistributionBody(strName,strDescription,strQuantity,strLocation));
+//
+//        viewModel.getPredictedPrice(new PredictionBody(strName,strQuantity));
     }
 }

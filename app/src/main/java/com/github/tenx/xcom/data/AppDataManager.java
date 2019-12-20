@@ -25,6 +25,8 @@ import com.github.tenx.xcom.data.rest.events.AppEventHelper;
 import com.github.tenx.xcom.di.scopes.ApplicationContext;
 import com.google.gson.JsonElement;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
@@ -109,7 +111,7 @@ public class AppDataManager implements  AppDataManagerHelper{
     }
 
     @Override
-    public Observable<Response<CropPriceResponse>> getMyCropPrice() {
+    public Observable<Response<Map<String,String>>> getMyCropPrice() {
         return eventHelper.getMyCropPrice();
     }
 

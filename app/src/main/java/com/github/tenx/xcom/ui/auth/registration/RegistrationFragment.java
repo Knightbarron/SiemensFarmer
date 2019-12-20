@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer;
 
 import com.github.tenx.xcom.R;
 import com.github.tenx.xcom.data.models.auth.RegistrationBody;
+import com.github.tenx.xcom.data.prefs.AppPreferencesHelper;
 import com.github.tenx.xcom.ui.auth.AuthViewModel;
 import com.github.tenx.xcom.ui.auth.login.LoginFragment;
 import com.github.tenx.xcom.ui.main.MainActivity;
@@ -79,6 +80,8 @@ public class RegistrationFragment extends Fragment {
     @BindView(R.id.last_name)
     TextInputEditText lastName;
 
+    AppPreferencesHelper appPreferencesHelper;
+
 
     @Inject
     public RegistrationFragment() {
@@ -115,6 +118,8 @@ public class RegistrationFragment extends Fragment {
                     Log.d(TAG, "onChanged: Registration Complete");
                     spinKit.setVisibility(View.INVISIBLE);
                     Snackbar.make(layout, "Registration Complete", Snackbar.LENGTH_SHORT).show();
+
+                  //  Log.d(TAG, "onChanged: " + appPreferencesHelper.getAccessToken());
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
@@ -179,9 +184,6 @@ public class RegistrationFragment extends Fragment {
         }
 
         spinKit.setVisibility(View.VISIBLE);
-        //TODO the registration
-        //  viewModel.registerFarmer(new RegistrationBody(emailStr, passwordStr,fullnameStr));
-     //   viewModel.registerFarmer(new RegistrationBody(emailStr, passwordStr));
 
 
         viewModel.registerFarmer(new RegistrationBody(emailStr,passwordStr,firstNameStr,lastNameStr));

@@ -43,6 +43,8 @@ public class ServicesViewModel extends BaseViewModel implements ServicesViewMode
 
     MutableLiveData<DistributionPriceResponse> predictionPriceResponse;
 
+    MutableLiveData<Map<String,String>> hashResponseForCrops;
+
 
 
     //Mutable LiveData Status
@@ -50,6 +52,20 @@ public class ServicesViewModel extends BaseViewModel implements ServicesViewMode
     MutableLiveData<Boolean> statusOrderEquipment;
 
     MutableLiveData<Boolean> statusCreateDisRequest;
+    MutableLiveData<Boolean> predictionStatus;
+
+    public LiveData<Map<String,String>> getHashResponseForCrops(){
+        if (hashResponseForCrops==null)
+            hashResponseForCrops = new MutableLiveData<>();
+        return hashResponseForCrops;
+    }
+
+    public LiveData<Boolean> getPredictionPriceStatusResponse(){
+        if (predictionStatus==null)
+            predictionStatus = new MutableLiveData<>();
+        return predictionStatus;
+    }
+
 
     public LiveData<DistributionPriceResponse> getDistributionPriceResponse(){
         if (distributionPriceResponse==null)
@@ -188,23 +204,30 @@ public class ServicesViewModel extends BaseViewModel implements ServicesViewMode
     }
 
     public void getMyCropnPrice() {
+
+        if (hashResponseForCrops==null)
+            hashResponseForCrops = new MutableLiveData<>();
+
+
         appDataManager.getMyCropPrice().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<CropPriceResponse>>() {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<Map<String,String>>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 getCompositeDisposable().add(d);
             }
 
             @Override
-            public void onNext(Response<CropPriceResponse> cropPriceResponseResponse) {
+            public void onNext(Response<Map<String,String>> cropPriceResponseResponse) {
                 Log.d(TAG, "onNext: Price Response::: " + cropPriceResponseResponse.code());
                 if (cropPriceResponseResponse.code()==200){
 
                     Log.d(TAG, "onNext: Reached here");
 
-                    Log.d(TAG, "onNext: " +cropPriceResponseResponse.body().getHashMap().size());
+                    Log.d(TAG, "onNext: " +cropPriceResponseResponse.body());
 
-                    Map<String,String> hash = cropPriceResponseResponse.body().getHashMap();
+                    hashResponseForCrops.setValue(cropPriceResponseResponse.body());
+
+                    Map<String,String> hash = cropPriceResponseResponse.body();
 
 
                     for (String keys:hash.keySet()){

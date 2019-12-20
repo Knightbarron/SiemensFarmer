@@ -4,7 +4,7 @@ public class PredictionBody {
 
     private String name;
 
-    private String quantity;
+    private int quantity;
 
     public PredictionBody(String name, int quantity) {
         this.name = name;
@@ -19,11 +19,11 @@ public class PredictionBody {
         this.name = name;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }

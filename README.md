@@ -19,22 +19,6 @@
 6: Firebase Cloud messaging : For sending real time notifications
 
 
-## Naming Patterns
-
-**layouts**
-`type_name`
-
-
-
-
-|||
-|--|--|
-|MainActivity|activity_main|
-|HomeFragment|fragment_home|
-|for listLayouts in recyclers etc|item_user|
-
-
-
 
 ## Project Structure
 
